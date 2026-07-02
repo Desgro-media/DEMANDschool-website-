@@ -32,11 +32,7 @@
 
   <nav id="navbar">
     <div class="nav-logo" id="navLogo" role="link" aria-label="Back to home" tabindex="0">
-      <div class="logo-bar"></div>
-      <div class="logo-row">
-        <span class="logo-text-demand">DEMAND</span>
-        <span class="logo-text-school">SCHOOL</span>
-      </div>
+      <img class="logo-img" src="logos/logo1.jpg" alt="Demand School">
     </div>
     <ul class="nav-links">
       <li><a href="#curriculum">CURRICULUM</a></li>
@@ -87,7 +83,12 @@
 
       <canvas class="ast-canvas ast-front" id="astCanvasFront" aria-hidden="true"></canvas>
 
-      <p class="hero-tagline">A hands-on course in content creation, personal branding, social growth and performance marketing — taught by the working creative team behind Desgro Media.</p>
+      <h2 class="hero-headline">Building Future-Ready Professionals.</h2>
+      <p class="hero-tagline">Learn the skills today's industries demand — Marketing, AI and Content Creation.</p>
+      <div class="hero-cta-row">
+        <a href="#curriculum" class="hero-btn hero-btn-outline">Explore Courses</a>
+        <a href="#contact" class="hero-btn hero-btn-solid">Enquire Now &rarr;</a>
+      </div>
     </div>
 
     <div class="filmstrip-section" aria-label="Cohort highlights">
@@ -113,46 +114,109 @@
 
   <section id="curriculum" class="curriculum-cards">
     <div class="cur-card">
-      <span class="cur-num">01</span>
-      <h3 class="cur-name">CONTENT<br>CREATION</h3>
-      <p class="cur-desc">Frameworks, tools, and storytelling techniques used by creators who post daily and never run out of ideas.</p>
-      <a href="#contact" class="cur-arrow">&rarr;</a>
+      <div class="cur-icon-area">
+        <div class="cur-icon-bg"></div>
+        <svg class="cur-icon-svg" viewBox="0 0 200 200" fill="none">
+          <rect x="24" y="132" width="26" height="48" rx="5" fill="#101614" opacity="0.12"/>
+          <rect x="60" y="104" width="26" height="76" rx="5" fill="#2ab460" opacity="0.35"/>
+          <rect x="96" y="72" width="26" height="108" rx="5" fill="#2ab460"/>
+          <circle cx="145" cy="75" r="50" fill="none" stroke="#2ab460" stroke-width="9"/>
+          <circle cx="145" cy="75" r="32" fill="none" stroke="#101614" stroke-width="7" opacity="0.15"/>
+          <circle cx="145" cy="75" r="14" fill="#2ab460"/>
+          <path d="M96 26 L138 68" stroke="#101614" stroke-width="7" stroke-linecap="round"/>
+          <path d="M84 18 L100 22 L96 38 Z" fill="#101614"/>
+        </svg>
+      </div>
+      <div class="cur-content">
+        <div class="cur-meta"><span class="cur-num-badge">01</span><span class="cur-meta-line"></span></div>
+        <h3 class="cur-title">
+          <span class="t-green">MODERN</span><br>
+          <span class="t-green">MARKETING</span><br>
+          <span class="t-dark">ARCHITECT</span>
+        </h3>
+        <span class="cur-underline"></span>
+        <p class="cur-desc">Become a modern marketer mastered with the strategies, tools, and practical experience needed to grow brands in today's <em>digital-first world</em>.</p>
+        <button type="button" class="cur-explore" data-course="mma">
+          <span class="cur-explore-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+          <span class="cur-explore-text">Explore More</span>
+        </button>
+      </div>
     </div>
+
     <div class="cur-card">
-      <span class="cur-num">02</span>
-      <h3 class="cur-name">Personal Branding</h3>
-      <p class="cur-desc">Positioning, visual identity, and content pillars that make you memorable and hireable.</p>
-      <a href="#contact" class="cur-arrow">&rarr;</a>
+      <div class="cur-icon-area">
+        <div class="cur-icon-bg"></div>
+        <svg class="cur-icon-svg" viewBox="0 0 200 200" fill="none">
+          <g stroke="#2ab460" stroke-width="4" stroke-linecap="round" opacity="0.55">
+            <path d="M70 55 L70 30"/><path d="M100 55 L100 20"/><path d="M130 55 L130 30"/>
+            <path d="M70 145 L70 170"/><path d="M100 145 L100 180"/><path d="M130 145 L130 170"/>
+            <path d="M55 70 L28 70"/><path d="M55 100 L18 100"/><path d="M55 130 L28 130"/>
+            <path d="M145 70 L172 70"/><path d="M145 100 L182 100"/><path d="M145 130 L172 130"/>
+          </g>
+          <g fill="#2ab460">
+            <circle cx="28" cy="70" r="4"/><circle cx="18" cy="100" r="4"/><circle cx="28" cy="130" r="4"/>
+            <circle cx="172" cy="70" r="4"/><circle cx="182" cy="100" r="4"/><circle cx="172" cy="130" r="4"/>
+            <circle cx="70" cy="30" r="4"/><circle cx="100" cy="20" r="4"/><circle cx="130" cy="30" r="4"/>
+            <circle cx="70" cy="170" r="4"/><circle cx="100" cy="180" r="4"/><circle cx="130" cy="170" r="4"/>
+          </g>
+          <rect x="55" y="55" width="90" height="90" rx="18" fill="#2ab460"/>
+          <rect x="70" y="70" width="60" height="60" rx="10" fill="none" stroke="#ffffff" stroke-width="2.5" opacity="0.45"/>
+          <text x="100" y="112" text-anchor="middle" font-family="Anton, sans-serif" font-size="34" fill="#ffffff">AI</text>
+        </svg>
+      </div>
+      <div class="cur-content">
+        <div class="cur-meta"><span class="cur-num-badge">02</span><span class="cur-meta-line"></span></div>
+        <h3 class="cur-title">
+          <span class="t-green">AI</span><br>
+          <span class="t-dark">CONTENTOLOGY</span>
+        </h3>
+        <span class="cur-underline"></span>
+        <p class="cur-desc">Master AI-powered content creation, filmmaking, automation, and <em>creative workflows</em> using the latest tools and technologies.</p>
+        <button type="button" class="cur-explore" data-course="aic">
+          <span class="cur-explore-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+          <span class="cur-explore-text">Explore More</span>
+        </button>
+      </div>
     </div>
+
     <div class="cur-card">
-      <span class="cur-num">03</span>
-      <h3 class="cur-name">Social Growth</h3>
-      <p class="cur-desc">Platform-specific playbooks for Instagram, YouTube and LinkedIn — algorithms, hooks, and retention.</p>
-      <a href="#contact" class="cur-arrow">&rarr;</a>
-    </div>
-    <div class="cur-card">
-      <span class="cur-num">04</span>
-      <h3 class="cur-name">PERFORMANCE<br>MARKETING</h3>
-      <p class="cur-desc">Run paid campaigns that convert — Meta &amp; Google ads, funnels, and the metrics that actually matter.</p>
-      <a href="#contact" class="cur-arrow">&rarr;</a>
-    </div>
-    <div class="cur-card">
-      <span class="cur-num">05</span>
-      <h3 class="cur-name">VIDEO &amp;<br>REELS</h3>
-      <p class="cur-desc">Shoot, edit and direct scroll-stopping short-form video with just a phone and free editing tools.</p>
-      <a href="#contact" class="cur-arrow">&rarr;</a>
-    </div>
-    <div class="cur-card">
-      <span class="cur-num">06</span>
-      <h3 class="cur-name">INFLUENCER<br>COLLABS</h3>
-      <p class="cur-desc">Pitch brands, negotiate rates, and manage long-term partnerships as a creator or a brand.</p>
-      <a href="#contact" class="cur-arrow">&rarr;</a>
-    </div>
-    <div class="cur-card">
-      <span class="cur-num">07</span>
-      <h3 class="cur-name">CAREER<br>PLACEMENT</h3>
-      <p class="cur-desc">Portfolio reviews, mock interviews, and direct introductions to our hiring partner network.</p>
-      <a href="#contact" class="cur-arrow">&rarr;</a>
+      <div class="cur-icon-area">
+        <div class="cur-icon-bg"></div>
+        <svg class="cur-icon-svg" viewBox="0 0 200 200" fill="none">
+          <rect x="34" y="38" width="132" height="94" rx="12" fill="#ffffff" stroke="#2ab460" stroke-width="4"/>
+          <rect x="34" y="38" width="132" height="22" rx="12" fill="#2ab460"/>
+          <circle cx="47" cy="49" r="3" fill="#ffffff"/><circle cx="57" cy="49" r="3" fill="#ffffff"/><circle cx="67" cy="49" r="3" fill="#ffffff"/>
+          <rect x="50" y="76" width="34" height="34" rx="4" fill="none" stroke="#2ab460" stroke-width="3"/>
+          <text x="67" y="101" text-anchor="middle" font-family="Anton, sans-serif" font-size="24" fill="#2ab460">T</text>
+          <rect x="94" y="78" width="58" height="6" rx="3" fill="#2ab460" opacity="0.6"/>
+          <rect x="94" y="92" width="58" height="6" rx="3" fill="#2ab460" opacity="0.35"/>
+          <rect x="94" y="106" width="36" height="6" rx="3" fill="#2ab460" opacity="0.35"/>
+          <rect x="86" y="132" width="48" height="8" rx="3" fill="#2ab460"/>
+          <g transform="rotate(-32 55 155)">
+            <rect x="40" y="148" width="58" height="14" rx="4" fill="#2ab460"/>
+            <polygon points="40,148 40,162 26,155" fill="#101614"/>
+          </g>
+          <g transform="translate(120,150) rotate(6)">
+            <rect x="0" y="0" width="42" height="34" rx="4" fill="#ffffff" stroke="#2ab460" stroke-width="3"/>
+            <line x1="8" y1="10" x2="34" y2="10" stroke="#2ab460" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+            <line x1="8" y1="18" x2="34" y2="18" stroke="#2ab460" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+            <line x1="8" y1="26" x2="24" y2="26" stroke="#2ab460" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+          </g>
+        </svg>
+      </div>
+      <div class="cur-content">
+        <div class="cur-meta"><span class="cur-num-badge">03</span><span class="cur-meta-line"></span></div>
+        <h3 class="cur-title">
+          <span class="t-green">CONTENT</span><br>
+          <span class="t-dark">CREATION</span>
+        </h3>
+        <span class="cur-underline"></span>
+        <p class="cur-desc">Learn storytelling, content psychology and platform strategies to create content that <em>builds audiences and businesses</em>.</p>
+        <button type="button" class="cur-explore" data-course="cc">
+          <span class="cur-explore-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+          <span class="cur-explore-text">Explore More</span>
+        </button>
+      </div>
     </div>
   </section>
 
@@ -161,28 +225,40 @@
       <div>
         <div class="why-eyebrow"><span></span>WHY DEMAND SCHOOL</div>
         <h2 class="why-h">Why<br><span>Learn With<br>Us?</span></h2>
-        <p class="why-p">In today's fast-paced digital environment, content is the currency. Whether you're a student, professional, or an aspiring creator, we equip you with the frameworks and hands-on practice to make your mark — taught by people who run real client accounts every day.</p>
+        <p class="why-p">The market changes faster than traditional education. At Demand School, we don't teach outdated theories. We design industry-focused programs that equip professionals with the practical skills that the market demands. Whether you want to build a career in marketing, become an AI-powered professional, or master content creation, our programs combine expert mentorship, real-world projects, and internships.</p>
+
+        <div class="why-mission">
+          <span class="why-mission-label">Our Mission</span>
+          <p class="why-mission-p">Our mission is to bridge the gap between traditional education and industry needs by delivering practical, market-driven programs in Marketing, AI, Content Creation, and emerging technologies. Through expert mentorship, hands-on learning, internships, and career support, we empower learners to build successful and sustainable careers.</p>
+        </div>
+
+        <ul class="why-checks">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Industry Curated Curriculum</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Mentorship from Experts</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Placement Assistance</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Practical Learning</li>
+        </ul>
       </div>
       <div class="stat-rows">
-        <div class="stat-row" data-val="2500" data-suf="+">
+        <div class="stat-row" data-val="200" data-suf="+">
           <span class="stat-idx">01</span>
           <div class="stat-num-wrap"><span class="stat-num">0</span><span class="stat-suf">+</span></div>
-          <span class="stat-label">Students Trained</span>
+          <span class="stat-label">Creators Built</span>
         </div>
-        <div class="stat-row" data-val="40" data-suf="+">
+        <div class="stat-row" data-val="327" data-suf="K+">
           <span class="stat-idx">02</span>
-          <div class="stat-num-wrap"><span class="stat-num">0</span><span class="stat-suf">+</span></div>
-          <span class="stat-label">Live Batches Run</span>
+          <div class="stat-num-wrap"><span class="stat-num">0</span><span class="stat-suf">K+</span></div>
+          <span class="stat-label">Organic Followers Generated</span>
         </div>
-        <div class="stat-row" data-val="95" data-suf="%+">
+        <div class="stat-row" data-val="100" data-suf="M+">
           <span class="stat-idx">03</span>
-          <div class="stat-num-wrap"><span class="stat-num">0</span><span class="stat-suf">%+</span></div>
-          <span class="stat-label">Completion Rate</span>
+          <div class="stat-num-wrap"><span class="stat-num">0</span><span class="stat-suf">M+</span></div>
+          <span class="stat-label">Views Created</span>
         </div>
-        <div class="stat-row" data-val="800" data-suf="+">
+        <div class="stat-row" data-val="90" data-suf="+">
           <span class="stat-idx">04</span>
           <div class="stat-num-wrap"><span class="stat-num">0</span><span class="stat-suf">+</span></div>
-          <span class="stat-label">Placed &amp; Certified</span>
+          <span class="stat-label">Students Trained</span>
         </div>
       </div>
     </div>
@@ -360,6 +436,11 @@
     </div>
   </section>
 
+  <section class="vibe-banner fade-in">
+    <p class="vibe-eyebrow">&mdash; Feel the Growth, Enjoy the Vibe</p>
+    <h2 class="vibe-line">Don't just earn a certificate.<br><span>Build skills that create opportunities.</span></h2>
+  </section>
+
   <section id="contact" class="contact-section">
 
     <div class="ct-body" id="ctHero">
@@ -373,13 +454,73 @@
       </div>
 
       <div class="ct-right">
-        <a href="mailto:hello@demandschool.com" class="ct-get-started-btn">ENROLL NOW &rarr;</a>
+        <form class="enquiry-form" id="enquiryForm" novalidate>
+          <div class="ef-row">
+            <label class="ef-field">
+              <span class="ef-label">Name</span>
+              <input type="text" name="name" required placeholder="Your full name" autocomplete="name">
+            </label>
+            <label class="ef-field">
+              <span class="ef-label">Phone Number</span>
+              <input type="tel" name="phone" required placeholder="+91 XXXXX XXXXX" autocomplete="tel">
+            </label>
+          </div>
+          <div class="ef-row">
+            <label class="ef-field">
+              <span class="ef-label">Academic Qualification</span>
+              <select name="qualification" required>
+                <option value="" disabled selected>Select qualification</option>
+                <option>10th</option>
+                <option>12th</option>
+                <option>Diploma</option>
+                <option>Undergraduate</option>
+                <option>Postgraduate</option>
+                <option>Other</option>
+              </select>
+            </label>
+            <label class="ef-field">
+              <span class="ef-label">Course</span>
+              <select name="course" required>
+                <option value="" disabled selected>Select course</option>
+                <option value="Modern Marketing Architect (MMA)">Modern Marketing Architect (MMA)</option>
+                <option value="AI Contentology (AIC)">AI Contentology (AIC)</option>
+                <option value="Content Creation (CC)">Content Creation (CC)</option>
+              </select>
+            </label>
+          </div>
+          <button type="submit" class="ef-submit">Enquire Now &rarr;</button>
+          <p class="ef-note" id="efNote" aria-live="polite"></p>
+        </form>
         <div class="ct-socials">
           <a href="https://www.instagram.com/demand.school" class="ct-social-row" target="_blank" rel="noopener">
             <svg class="ct-social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
             <div class="ct-social-info">
               <span class="ct-social-platform">Instagram</span>
               <span class="ct-social-handle">@demand.school</span>
+            </div>
+            <span class="ct-social-arrow">&rarr;</span>
+          </a>
+          <a href="https://chat.whatsapp.com/JnEOK7Z82Ps0DF0FWNBEyQ?mode=ems_wa_t&amp;utm_source=ig&amp;utm_medium=social&amp;utm_content=link_in_bio" class="ct-social-row" target="_blank" rel="noopener">
+            <svg class="ct-social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.65-4.95A8.5 8.5 0 1 1 8.5 19.5L3 21z"/><path d="M8.5 13.5c.5 1.5 2.5 3 4 3.5"/></svg>
+            <div class="ct-social-info">
+              <span class="ct-social-platform">WhatsApp</span>
+              <span class="ct-social-handle">Join our group</span>
+            </div>
+            <span class="ct-social-arrow">&rarr;</span>
+          </a>
+          <a href="#" class="ct-social-row" target="_blank" rel="noopener">
+            <svg class="ct-social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="3"/><line x1="7" y1="10" x2="7" y2="17"/><line x1="7" y1="6.5" x2="7" y2="6.51"/><line x1="12" y1="10" x2="12" y2="17"/><path d="M12 13c0-1.7 1.3-3 3-3s3 1.3 3 3v4"/></svg>
+            <div class="ct-social-info">
+              <span class="ct-social-platform">LinkedIn</span>
+              <span class="ct-social-handle">Demand School</span>
+            </div>
+            <span class="ct-social-arrow">&rarr;</span>
+          </a>
+          <a href="https://maps.google.com/?q=HiLite+Business+Park,+Calicut,+India" class="ct-social-row" target="_blank" rel="noopener">
+            <svg class="ct-social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div class="ct-social-info">
+              <span class="ct-social-platform">Location</span>
+              <span class="ct-social-handle">HiLite Business Park, Calicut, India</span>
             </div>
             <span class="ct-social-arrow">&rarr;</span>
           </a>
@@ -395,24 +536,9 @@
       </div>
     </div>
 
-    <div class="ct-info-strip">
-      <div class="footer-info-block">
-        <span class="footer-info-label">Location</span>
-        <span class="footer-info-val">Kerala, India</span>
-      </div>
-      <div class="footer-info-block">
-        <span class="footer-info-label">Email</span>
-        <a href="mailto:hello@demandschool.com" class="footer-info-val footer-info-link">hello@demandschool.com</a>
-      </div>
-    </div>
-
     <div class="contact-footer">
       <div class="footer-logo">
-        <div class="logo-bar"></div>
-        <div class="logo-row">
-          <span class="logo-text-demand">DEMAND</span>
-          <span class="logo-text-school">SCHOOL</span>
-        </div>
+        <img class="logo-img logo-img--footer" src="logos/logo1.jpg" alt="Demand School">
       </div>
       <p class="footer-copy">&copy; 2026 Demand School. All rights reserved.</p>
     </div>
@@ -423,6 +549,28 @@
   <button id="backToTop" class="back-to-top" aria-label="Back to top" title="Back to top">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
   </button>
+
+  <!-- ── COURSE BROCHURE MODAL ── -->
+  <div class="brochure-modal" id="brochureModal" aria-hidden="true">
+    <div class="brochure-backdrop" data-close></div>
+    <div class="brochure-panel" role="dialog" aria-modal="true" aria-labelledby="brochureTitle">
+      <button type="button" class="brochure-close" data-close aria-label="Close brochure">&times;</button>
+      <span class="brochure-eyebrow">COURSE BROCHURE</span>
+      <h3 class="brochure-title" id="brochureTitle"></h3>
+      <p class="brochure-tagline"></p>
+      <div class="brochure-meta"></div>
+      <p class="brochure-subhead"></p>
+      <div class="brochure-section">
+        <span class="brochure-section-label">Curriculum</span>
+        <ul class="brochure-list brochure-list--curriculum"></ul>
+      </div>
+      <div class="brochure-section">
+        <span class="brochure-section-label">What you'll learn</span>
+        <ul class="brochure-list brochure-list--outcomes"></ul>
+      </div>
+      <a href="#contact" class="brochure-cta" data-close>Enroll Now &rarr;</a>
+    </div>
+  </div>
 
   <script src="main.js"></script>
 </body>

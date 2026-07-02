@@ -107,10 +107,14 @@
     const schoolDelay = charInners.length * 50 + 60;
     setTimeout(() => { if (schoolEl) schoolEl.classList.add('anim-in'); }, schoolDelay);
 
-    const labels  = document.querySelector('.hero-top-labels');
-    const tagline = document.querySelector('.hero-tagline');
-    setTimeout(() => { if (labels)  labels.classList.add('anim-in'); }, 60);
-    setTimeout(() => { if (tagline) tagline.classList.add('anim-in'); }, 400);
+    const labels   = document.querySelector('.hero-top-labels');
+    const headline = document.querySelector('.hero-headline');
+    const tagline  = document.querySelector('.hero-tagline');
+    const ctaRow   = document.querySelector('.hero-cta-row');
+    setTimeout(() => { if (labels)   labels.classList.add('anim-in'); }, 60);
+    setTimeout(() => { if (headline) headline.classList.add('anim-in'); }, 340);
+    setTimeout(() => { if (tagline)  tagline.classList.add('anim-in'); }, 400);
+    setTimeout(() => { if (ctaRow)   ctaRow.classList.add('anim-in'); }, 460);
   }
 
   /* ── Generic .fade-in sections ── */
@@ -132,6 +136,125 @@
   }, { threshold: 0.15 });
   curCards.forEach(c => curIO.observe(c));
 
+})();
+
+/* ──────────────────────────────────────────
+   Curriculum cards: brochure modal
+────────────────────────────────────────── */
+(function initBrochureModal() {
+  const modal = document.getElementById('brochureModal');
+  const triggers = document.querySelectorAll('.cur-explore[data-course]');
+  if (!modal || !triggers.length) return;
+
+  const COURSES = {
+    mma: {
+      title: 'Modern Marketing Architect',
+      tagline: 'Become a modern marketer mastered with the strategies, tools, and practical experience needed to grow brands in today’s digital-first world.',
+      meta: ['Offline', '4 Month Course + 2 Month Internship'],
+      headline: 'Learn How Real-World Marketing Actually Works',
+      curriculum: [
+        'Marketing Fundamentals',
+        'Branding & Long-Term Growth',
+        'Content Psychology & Strategy',
+        'Organic Content Creation',
+        'Offline Marketing',
+        'Content Distribution & Growth',
+        'Performance Marketing Foundation',
+        'Meta Ads (Core to Advanced)',
+        'Leads, Sales & Funnels',
+        'WhatsApp Marketing Systems',
+        'Careers, Freelancing & Agency'
+      ],
+      outcomes: [
+        'How Demand is Built Before Ads',
+        'How Content Grows with Systems',
+        'Real-World Marketing Thinking',
+        'Brand Positioning & Growth',
+        'Performance Marketing Execution',
+        'Marketing Strategy for Companies'
+      ]
+    },
+    aic: {
+      title: 'AI Contentology',
+      tagline: 'Master AI-powered content creation, filmmaking, automation, and creative workflows using the latest tools and technologies.',
+      meta: ['Online', '2 Month Course + 1 Month Internship'],
+      headline: 'Master the Future',
+      curriculum: [
+        'Foundations of AI',
+        'Prompt Engineering Systems',
+        'Content Strategy & AI Workflow',
+        'Visual Content Creation',
+        'Video Content & Storytelling',
+        'Audio Integration & Production',
+        'Commercial AI Content Creation',
+        'Ethical AI Usage',
+        'Freelance & Business Applications'
+      ],
+      outcomes: [
+        'AI-Powered Content Workflow',
+        'Prompt Structuring for Better Outputs',
+        'AI Video Generation Workflows',
+        'Voice, Audio & Final Production',
+        'Commercial AI Content Execution'
+      ]
+    },
+    cc: {
+      title: 'Content Creation',
+      tagline: 'Learn storytelling, content psychology and platform strategies to create content that builds audiences and businesses.',
+      meta: ['Online', '1 Month Course'],
+      headline: 'Master the Fundamentals',
+      curriculum: [
+        'Content Strategy & Planning',
+        'Content Creation & Storytelling',
+        'Content Presentation & Communication',
+        'Content Publishing & Distribution',
+        'Instagram Growth Systems',
+        'Analytics & Performance Optimization'
+      ],
+      outcomes: [
+        'Building a Strong Personal Brand Identity',
+        'Instagram Profile Optimization',
+        'Content Ideation & Planning Frameworks',
+        'Content Scripting & Presentation Techniques',
+        'Understanding Algorithms & Growth Strategies'
+      ]
+    }
+  };
+
+  const titleEl       = modal.querySelector('.brochure-title');
+  const taglineEl     = modal.querySelector('.brochure-tagline');
+  const metaEl        = modal.querySelector('.brochure-meta');
+  const subheadEl     = modal.querySelector('.brochure-subhead');
+  const curriculumEl  = modal.querySelector('.brochure-list--curriculum');
+  const outcomesEl    = modal.querySelector('.brochure-list--outcomes');
+
+  function fill(course) {
+    const data = COURSES[course];
+    if (!data) return;
+    titleEl.textContent = data.title;
+    taglineEl.textContent = data.tagline;
+    metaEl.innerHTML = data.meta.map(m => `<span class="brochure-meta-item">${m}</span>`).join('');
+    subheadEl.textContent = data.headline;
+    curriculumEl.innerHTML = data.curriculum.map(p => `<li>${p}</li>`).join('');
+    outcomesEl.innerHTML = data.outcomes.map(p => `<li>${p}</li>`).join('');
+  }
+
+  function openModal(course) {
+    fill(course);
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  triggers.forEach(btn => btn.addEventListener('click', () => openModal(btn.dataset.course)));
+  modal.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', closeModal));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
 })();
 
 /* ══════════════════════════════════════════════════════
@@ -176,6 +299,35 @@
     });
   }, { threshold: 0.2 });
   rows.forEach(r => io.observe(r));
+})();
+
+/* ──────────────────────────────────────────
+   Enquiry form — static site, no backend, so this
+   opens the visitor's email client with the details
+   pre-filled rather than pretending to submit anywhere.
+────────────────────────────────────────── */
+(function initEnquiryForm() {
+  const form = document.getElementById('enquiryForm');
+  const note = document.getElementById('efNote');
+  if (!form) return;
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+
+    const data = new FormData(form);
+    const name = (data.get('name') || '').trim();
+    const phone = (data.get('phone') || '').trim();
+    const qualification = data.get('qualification') || '';
+    const course = data.get('course') || '';
+
+    const subject = `Course Enquiry — ${course}`;
+    const body = `Name: ${name}\nPhone: ${phone}\nAcademic Qualification: ${qualification}\nCourse: ${course}`;
+    const mailto = `mailto:hello@demandschool.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    window.location.href = mailto;
+    if (note) note.textContent = 'Opening your email app to send this to us…';
+  });
 })();
 
 /* ══════════════════════════════════════════════════════
