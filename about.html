@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Demand School</title>
+<meta name="description" content="Demand School is an academy for Marketing, AI and Content Creation, built by practitioners to make graduates career-ready, not just certified.">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="courses.css">
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+</head>
+<body data-course="about">
+
+  <div class="page-loader" aria-hidden="true">
+    <div class="loader-logo-wrap">
+      <div class="loader-3d-box">
+        <div class="face front">
+          <div class="loader-topbar"></div>
+          <div class="loader-name">D</div>
+        </div>
+        <div class="face back">
+          <div class="loader-topbar"></div>
+          <div class="loader-name">D</div>
+        </div>
+        <div class="face left"></div>
+        <div class="face right"></div>
+        <div class="face top"></div>
+        <div class="face bottom"></div>
+      </div>
+    </div>
+    <div class="loader-track"><div class="loader-fill"></div></div>
+  </div>
+
+  <nav id="navbar">
+    <div class="nav-logo" id="navLogo" role="link" aria-label="Back to home" tabindex="0">
+      <img class="logo-img" src="logos/logo1.jpg" alt="Demand School">
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html#curriculum">CURRICULUM</a></li>
+      <li><a href="about.html" class="nav-active">ABOUT</a></li>
+      <li><a href="index.html#testimonials">STORIES</a></li>
+      <li><a href="index.html#mentors">MENTORS</a></li>
+      <li><a href="index.html#outcomes">OUTCOMES</a></li>
+      <li><a href="index.html#contact">CONTACT</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="https://www.instagram.com/demand.school" target="_blank" rel="noopener" class="nav-circle-btn" aria-label="Demand School on Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="index.html#contact" class="btn-get-started">ENROLL NOW &rarr;</a>
+      <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
+    <button class="mobile-nav-close" id="mobileNavClose" aria-label="Close menu"></button>
+    <ul>
+      <li><a href="index.html#curriculum">Curriculum</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="index.html#testimonials">Stories</a></li>
+      <li><a href="index.html#mentors">Mentors</a></li>
+      <li><a href="index.html#outcomes">Outcomes</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <a href="index.html#contact" class="btn-get-started mobile-nav-cta">ENROLL NOW &rarr;</a>
+  </div>
+
+  <main class="cd-main">
+
+    <section class="cd-hero" id="cdHero">
+      <canvas class="ast-canvas ast-back" id="cdAstCanvasBack" aria-hidden="true"></canvas>
+      <canvas class="ast-canvas ast-front" id="cdAstCanvasFront" aria-hidden="true"></canvas>
+      <a href="index.html" class="cd-back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Home
+      </a>
+      <div class="cd-hero-top">
+        <span class="cd-pill"><span class="dot"></span>About Demand School</span>
+      </div>
+      <h1 class="cd-title">WE TEACH WHAT THE <span>MARKET DEMANDS</span></h1>
+      <p class="cd-kicker">Not Another Certificate Factory</p>
+      <p class="cd-tagline">Demand School is an academy for Marketing, AI and Content Creation — built by practitioners, not theorists, for people who want real skills and real outcomes, not just a certificate.</p>
+      <div class="cd-cta-row">
+        <a href="index.html#curriculum" class="hero-btn hero-btn-solid">Explore Courses &rarr;</a>
+        <a href="index.html#contact" class="hero-btn hero-btn-outline">Enroll Now</a>
+      </div>
+
+      <div class="cd-stats fade-in">
+        <div class="cd-stat"><span class="cd-stat-label">Creators Built</span><span class="cd-stat-val">200+</span></div>
+        <div class="cd-stat"><span class="cd-stat-label">Followers Generated</span><span class="cd-stat-val">327K+</span></div>
+        <div class="cd-stat"><span class="cd-stat-label">Views Created</span><span class="cd-stat-val">100M+</span></div>
+        <div class="cd-stat"><span class="cd-stat-label">Students Trained</span><span class="cd-stat-val">90+</span></div>
+      </div>
+    </section>
+
+    <section class="cd-section fade-in">
+      <div class="cd-eyebrow"><span></span>HOW WE STARTED</div>
+      <h2 class="cd-h2">Built By Practitioners, <em>Not Professors</em></h2>
+      <p class="cd-tagline">Demand School started with a simple frustration: traditional education wasn't built for how Marketing, AI and Content actually work today. Course outlines were years behind the platforms and tools students were expected to use on day one of a real job. So instead of another lecture-and-textbook program, we built cohorts run by people who are still doing the work — planning campaigns, shooting reels, running ad accounts, and shipping AI-powered content for real clients — and put students through the same process, with mentors reviewing every step.</p>
+    </section>
+
+    <section class="cd-section fade-in">
+      <div class="cd-eyebrow"><span></span>OUR MISSION</div>
+      <h2 class="cd-h2">Bridging the <em>Gap</em></h2>
+      <p class="cd-tagline">Our mission is to bridge the gap between traditional education and industry needs by delivering practical, market-driven programs in Marketing, AI, Content Creation, and emerging technologies. Through expert mentorship, hands-on learning, internships, and career support, we empower learners to build successful and sustainable careers — not just collect a certificate and hope it's enough.</p>
+    </section>
+
+    <section class="cd-section fade-in">
+      <div class="cd-eyebrow"><span></span>WHAT MAKES US DIFFERENT</div>
+      <h2 class="cd-h2">Why Learners <em>Choose Us</em></h2>
+      <div class="cd-outcomes-grid">
+        <div class="cd-outcome-item"><span class="cd-outcome-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="cd-outcome-text">Industry Curated Curriculum</span></div>
+        <div class="cd-outcome-item"><span class="cd-outcome-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="cd-outcome-text">Mentorship From Experts</span></div>
+        <div class="cd-outcome-item"><span class="cd-outcome-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="cd-outcome-text">Placement Assistance</span></div>
+        <div class="cd-outcome-item"><span class="cd-outcome-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span><span class="cd-outcome-text">Practical, Hands-On Learning</span></div>
+      </div>
+    </section>
+
+    <section class="cd-section fade-in">
+      <div class="cd-eyebrow"><span></span>TAUGHT BY PRACTITIONERS</div>
+      <h2 class="cd-h2">Meet the <em>Mentors</em></h2>
+      <p class="cd-tagline">Every module is taught by someone who does this for a living — marketers running live ad accounts, creators with real audiences, and AI practitioners shipping commercial work. See who you'll actually be learning from.</p>
+      <div class="cd-cta-row">
+        <a href="index.html#mentors" class="hero-btn hero-btn-outline">Meet the Mentors &rarr;</a>
+      </div>
+    </section>
+
+    <section class="cd-final-cta fade-in">
+      <h2 class="cd-final-h">Ready to Build Skills That <span>Actually Matter</span>?</h2>
+      <div class="cd-cta-row">
+        <a href="index.html#curriculum" class="hero-btn hero-btn-solid">Explore Courses &rarr;</a>
+        <a href="index.html#contact" class="hero-btn hero-btn-outline">Enroll Now</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="cd-footer">
+    <div class="contact-footer">
+      <div class="footer-logo"><img class="logo-img logo-img--footer" src="logos/logo1.jpg" alt="Demand School"></div>
+      <p class="footer-copy">&copy; 2026 Demand School. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <button id="backToTop" class="back-to-top" aria-label="Back to top" title="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <script src="main.js"></script>
+  <script src="courses.js"></script>
+</body>
+</html>

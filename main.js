@@ -107,7 +107,7 @@
     const schoolDelay = charInners.length * 50 + 60;
     setTimeout(() => { if (schoolEl) schoolEl.classList.add('anim-in'); }, schoolDelay);
 
-    const labels   = document.querySelector('.hero-top-labels');
+    const labels   = document.querySelector('.hero-pill');
     const headline = document.querySelector('.hero-headline');
     const tagline  = document.querySelector('.hero-tagline');
     const ctaRow   = document.querySelector('.hero-cta-row');
@@ -139,122 +139,20 @@
 })();
 
 /* ──────────────────────────────────────────
-   Curriculum cards: brochure modal
+   Contact form: pre-select the course when a course
+   detail page's "Enroll Now" link lands here with
+   ?enroll=mma|aic|cc in the URL
 ────────────────────────────────────────── */
-(function initBrochureModal() {
-  const modal = document.getElementById('brochureModal');
-  const triggers = document.querySelectorAll('.cur-explore[data-course]');
-  if (!modal || !triggers.length) return;
-
-  const COURSES = {
-    mma: {
-      title: 'Modern Marketing Architect',
-      tagline: 'Become a modern marketer mastered with the strategies, tools, and practical experience needed to grow brands in today’s digital-first world.',
-      meta: ['Offline', '4 Month Course + 2 Month Internship'],
-      headline: 'Learn How Real-World Marketing Actually Works',
-      curriculum: [
-        'Marketing Fundamentals',
-        'Branding & Long-Term Growth',
-        'Content Psychology & Strategy',
-        'Organic Content Creation',
-        'Offline Marketing',
-        'Content Distribution & Growth',
-        'Performance Marketing Foundation',
-        'Meta Ads (Core to Advanced)',
-        'Leads, Sales & Funnels',
-        'WhatsApp Marketing Systems',
-        'Careers, Freelancing & Agency'
-      ],
-      outcomes: [
-        'How Demand is Built Before Ads',
-        'How Content Grows with Systems',
-        'Real-World Marketing Thinking',
-        'Brand Positioning & Growth',
-        'Performance Marketing Execution',
-        'Marketing Strategy for Companies'
-      ]
-    },
-    aic: {
-      title: 'AI Contentology',
-      tagline: 'Master AI-powered content creation, filmmaking, automation, and creative workflows using the latest tools and technologies.',
-      meta: ['Online', '2 Month Course + 1 Month Internship'],
-      headline: 'Master the Future',
-      curriculum: [
-        'Foundations of AI',
-        'Prompt Engineering Systems',
-        'Content Strategy & AI Workflow',
-        'Visual Content Creation',
-        'Video Content & Storytelling',
-        'Audio Integration & Production',
-        'Commercial AI Content Creation',
-        'Ethical AI Usage',
-        'Freelance & Business Applications'
-      ],
-      outcomes: [
-        'AI-Powered Content Workflow',
-        'Prompt Structuring for Better Outputs',
-        'AI Video Generation Workflows',
-        'Voice, Audio & Final Production',
-        'Commercial AI Content Execution'
-      ]
-    },
-    cc: {
-      title: 'Content Creation',
-      tagline: 'Learn storytelling, content psychology and platform strategies to create content that builds audiences and businesses.',
-      meta: ['Online', '1 Month Course'],
-      headline: 'Master the Fundamentals',
-      curriculum: [
-        'Content Strategy & Planning',
-        'Content Creation & Storytelling',
-        'Content Presentation & Communication',
-        'Content Publishing & Distribution',
-        'Instagram Growth Systems',
-        'Analytics & Performance Optimization'
-      ],
-      outcomes: [
-        'Building a Strong Personal Brand Identity',
-        'Instagram Profile Optimization',
-        'Content Ideation & Planning Frameworks',
-        'Content Scripting & Presentation Techniques',
-        'Understanding Algorithms & Growth Strategies'
-      ]
-    }
+(function initEnrollPrefill() {
+  const select = document.querySelector('#enquiryForm select[name="course"]');
+  if (!select) return;
+  const param = new URLSearchParams(location.search).get('enroll');
+  const map = {
+    mma: 'Modern Marketing Architect (MMA)',
+    aic: 'AI Contentology (AIC)',
+    cc: 'Content Creation (CC)'
   };
-
-  const titleEl       = modal.querySelector('.brochure-title');
-  const taglineEl     = modal.querySelector('.brochure-tagline');
-  const metaEl        = modal.querySelector('.brochure-meta');
-  const subheadEl     = modal.querySelector('.brochure-subhead');
-  const curriculumEl  = modal.querySelector('.brochure-list--curriculum');
-  const outcomesEl    = modal.querySelector('.brochure-list--outcomes');
-
-  function fill(course) {
-    const data = COURSES[course];
-    if (!data) return;
-    titleEl.textContent = data.title;
-    taglineEl.textContent = data.tagline;
-    metaEl.innerHTML = data.meta.map(m => `<span class="brochure-meta-item">${m}</span>`).join('');
-    subheadEl.textContent = data.headline;
-    curriculumEl.innerHTML = data.curriculum.map(p => `<li>${p}</li>`).join('');
-    outcomesEl.innerHTML = data.outcomes.map(p => `<li>${p}</li>`).join('');
-  }
-
-  function openModal(course) {
-    fill(course);
-    modal.classList.add('open');
-    modal.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeModal() {
-    modal.classList.remove('open');
-    modal.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-  }
-
-  triggers.forEach(btn => btn.addEventListener('click', () => openModal(btn.dataset.course)));
-  modal.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', closeModal));
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+  if (param && map[param]) select.value = map[param];
 })();
 
 /* ══════════════════════════════════════════════════════
@@ -341,6 +239,150 @@
   clone.removeAttribute('id');
   clone.setAttribute('aria-hidden', 'true');
   Array.from(clone.children).forEach(child => track.appendChild(child));
+})();
+
+/* ══════════════════════════════════════════════════════
+   OUTCOMES SPOTLIGHT — one real result expanded large, the
+   rest as thumbnails; rotates automatically, or on click the
+   clicked thumbnail takes the spotlight
+══════════════════════════════════════════════════════ */
+(function initOutcomesSpotlight() {
+  const wrap     = document.getElementById('outcomesSpotlight');
+  const mediaWrapEl = document.getElementById('spotlightMediaWrap');
+  const thumbsEl = document.getElementById('spotlightThumbs');
+  const catEl   = document.getElementById('spotlightCat');
+  const nameEl  = document.getElementById('spotlightName');
+  const descEl  = document.getElementById('spotlightDesc');
+  const linkEl  = document.getElementById('spotlightLink');
+  if (!wrap || !mediaWrapEl || !thumbsEl) return;
+
+  const ITEMS = [
+    {
+      shortName: 'Lulu',
+      media: { type: 'image', src: 'realresults/lulu.jpg', alt: 'Lulu' },
+      cat: 'Content Creation · Student',
+      name: 'Lulu crossed 6K+ followers while still studying',
+      desc: 'Juggling coursework and content, Lulu used the platform and storytelling frameworks from the program to build a consistent posting rhythm — growing a personal page past 6,000 followers before she’d even graduated.',
+      link: 'https://www.instagram.com/being.luluuu/',
+      linkText: 'View on Instagram'
+    },
+    {
+      shortName: 'AI Contentology',
+      media: { type: 'video', src: 'realresults/bammbuzz-tissue-ad.mp4' },
+      cat: 'AI Contentology · Freelance Work',
+      name: 'AI Contentology students are already freelancing for real brands',
+      desc: 'This Bammbuzz tissue ad was produced end-to-end using the AI content workflows taught in the program — proof that graduates are landing paid freelance briefs and earning from client work before the course even ends.',
+      link: '#curriculum',
+      linkText: 'Explore the course'
+    },
+    {
+      shortName: 'Dr. Muneer',
+      media: { type: 'image', src: 'realresults/dr-pk-muneer.jpg', alt: 'Dr. PK Muneer' },
+      cat: 'Content Creation · Personal Brand',
+      name: 'Dr. Muneer gained 20K+ followers after the Content Creation program',
+      desc: 'A busy working professional, Dr. Muneer used the platform and content strategy frameworks from the program to turn an inconsistent presence into a fast-growing personal brand — crossing 20,000 followers in the process.',
+      link: 'https://www.instagram.com/dr.pk.muneer/',
+      linkText: 'View on Instagram'
+    },
+    {
+      shortName: 'Dilna',
+      media: { type: 'image', src: 'realresults/dilna-najeeb.png', alt: 'Dilna Najeeb' },
+      cat: 'Business Growth · Founder',
+      name: 'Dilna is scaling her business with expert mentorship',
+      desc: 'As Founder & CEO of Tibbway Medical Tourism Company, Dilna joined the program to sharpen her brand and content strategy — using 1:1 mentorship to take her business into its next phase of growth.',
+      link: 'https://www.instagram.com/reel/DaSX3dZvAhJ/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ==',
+      linkText: 'View the reel'
+    }
+  ];
+
+  // Persistent media nodes: created once so the video keeps playing
+  // uninterrupted as it's moved between the main slot and a thumb slot.
+  const nodes = ITEMS.map(item => {
+    let el;
+    if (item.media.type === 'video') {
+      el = document.createElement('video');
+      el.src = item.media.src;
+      el.autoplay = true;
+      el.muted = true;
+      el.loop = true;
+      el.playsInline = true;
+    } else {
+      el = document.createElement('img');
+      el.src = item.media.src;
+      el.alt = item.media.alt || '';
+      el.loading = 'lazy';
+    }
+    el.className = 'spotlight-media';
+    return el;
+  });
+
+  let order = ITEMS.map((_, i) => i);
+  let timer = null;
+
+  function buildThumb(idx) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'spotlight-thumb spotlight-thumb-enter';
+    btn.setAttribute('aria-label', 'Show ' + ITEMS[idx].shortName);
+    btn.appendChild(nodes[idx]);
+    const label = document.createElement('span');
+    label.className = 'spotlight-thumb-label';
+    label.textContent = ITEMS[idx].shortName;
+    btn.appendChild(label);
+    btn.addEventListener('click', () => focusItem(idx));
+    return btn;
+  }
+
+  function render() {
+    const mainIdx = order[0];
+
+    mediaWrapEl.classList.remove('spotlight-visual-enter');
+    void mediaWrapEl.offsetWidth;
+    mediaWrapEl.appendChild(nodes[mainIdx]);
+    mediaWrapEl.classList.add('spotlight-visual-enter');
+
+    thumbsEl.innerHTML = '';
+    order.slice(1).forEach(idx => thumbsEl.appendChild(buildThumb(idx)));
+
+    const item = ITEMS[mainIdx];
+    catEl.textContent = item.cat;
+    nameEl.textContent = item.name;
+    descEl.textContent = item.desc;
+    linkEl.textContent = item.linkText + ' →';
+    linkEl.href = item.link;
+    if (/^https?:/.test(item.link)) {
+      linkEl.target = '_blank';
+      linkEl.rel = 'noopener';
+    } else {
+      linkEl.removeAttribute('target');
+      linkEl.removeAttribute('rel');
+    }
+  }
+
+  function focusItem(idx) {
+    const pos = order.indexOf(idx);
+    if (pos <= 0) return;
+    order.splice(pos, 1);
+    order.unshift(idx);
+    render();
+    resetTimer();
+  }
+
+  function rotate() {
+    order.push(order.shift());
+    render();
+  }
+
+  function resetTimer() {
+    clearInterval(timer);
+    timer = setInterval(rotate, 3000);
+  }
+
+  render();
+  resetTimer();
+
+  wrap.addEventListener('mouseenter', () => clearInterval(timer));
+  wrap.addEventListener('mouseleave', resetTimer);
 })();
 
 /* ══════════════════════════════════════════════════════
@@ -654,11 +696,6 @@
 (function initAsterisk3D() {
   if (typeof THREE === 'undefined') return;
 
-  const hero   = document.getElementById('heroIntroWrap');
-  const cBack  = document.getElementById('astCanvasBack');
-  const cFront = document.getElementById('astCanvasFront');
-  if (!hero || !cBack || !cFront) return;
-
   function makeAstShape(rOut, rIn) {
     const arms = 6;
     const step = (2 * Math.PI) / arms;
@@ -682,151 +719,180 @@
     return sh;
   }
 
-  function buildScene(canvas, cfg) {
-    const W = hero.offsetWidth, H = hero.offsetHeight;
-    const isMobile = W < 768;
+  /* Mounts the same pair of floating glass asterisks (mouse-parallax,
+     slow rotation, fade-in reveal, pause when off-screen) into any
+     hero container. `scale` shrinks both the geometry and the float
+     range together, so a smaller mount still keeps its shapes inside
+     its own (smaller) hero instead of drifting out of it. `biasX`/`biasY`
+     shift the whole pair so they clear left-aligned copy instead of
+     sitting centered the way the homepage's centered hero wants them. */
+  function mountAsterisks(hero, cBack, cFront, scale, biasX, biasY) {
+    if (!hero || !cBack || !cFront) return;
+    biasX = biasX || 0;
+    biasY = biasY || 0;
 
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-    renderer.setSize(W, H);
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 2.2;
-    renderer.shadowMap.enabled = false;
+    function buildScene(canvas, cfg) {
+      const W = hero.offsetWidth, H = hero.offsetHeight;
+      const isMobile = W < 768;
 
-    const scene = new THREE.Scene();
-    const fov = isMobile ? 62 : 42;
-    const camZ = isMobile ? 6.5 : 10;
-    const camera = new THREE.PerspectiveCamera(fov, W / H, 0.1, 100);
-    camera.position.z = camZ;
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+      renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+      renderer.setSize(W, H);
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 2.2;
+      renderer.shadowMap.enabled = false;
 
-    const geo = new THREE.ExtrudeGeometry(makeAstShape(cfg.rOut, cfg.rIn), {
-      depth: cfg.depth,
-      bevelEnabled: true,
-      bevelThickness: cfg.bevel,
-      bevelSize: cfg.bevel * 0.85,
-      bevelSegments: 20,
-      curveSegments: 56,
+      const scene = new THREE.Scene();
+      const fov = isMobile ? 62 : 42;
+      const camZ = isMobile ? 6.5 : 10;
+      const camera = new THREE.PerspectiveCamera(fov, W / H, 0.1, 100);
+      camera.position.z = camZ;
+
+      const geo = new THREE.ExtrudeGeometry(makeAstShape(cfg.rOut, cfg.rIn), {
+        depth: cfg.depth,
+        bevelEnabled: true,
+        bevelThickness: cfg.bevel,
+        bevelSize: cfg.bevel * 0.85,
+        bevelSegments: 20,
+        curveSegments: 56,
+      });
+      geo.center();
+
+      /* Dark glossy body, green emissive glow in shadowed areas */
+      const mat = new THREE.MeshPhysicalMaterial({
+        color: 0x181818,
+        emissive: 0x2ab460,
+        emissiveIntensity: cfg.emissive,
+        metalness: 0.05,
+        roughness: 0.05,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.03,
+        reflectivity: 1.0,
+      });
+
+      const mesh = new THREE.Mesh(geo, mat);
+      scene.add(mesh);
+
+      scene.add(new THREE.AmbientLight(0x1a2620, 4));
+
+      const key = new THREE.PointLight(0xffffff, 80, 50);
+      key.position.set(-4, 6, 8);
+      scene.add(key);
+
+      const key2 = new THREE.PointLight(0xeaffef, 40, 45);
+      key2.position.set(5, 3, 6);
+      scene.add(key2);
+
+      /* Green fill — signature green glow on edges */
+      const greenFront = new THREE.PointLight(0x2ab460, 20, 25);
+      greenFront.position.set(0, -3, 5);
+      scene.add(greenFront);
+
+      const greenBack = new THREE.PointLight(0x2ab460, 12, 20);
+      greenBack.position.set(-3, 3, -5);
+      scene.add(greenBack);
+
+      const rim = new THREE.PointLight(0x224433, 8, 22);
+      rim.position.set(2, -6, -3);
+      scene.add(rim);
+
+      window.addEventListener('resize', () => {
+        const nW = hero.offsetWidth, nH = hero.offsetHeight;
+        const nm = nW < 768;
+        camera.fov = nm ? 62 : 42;
+        camera.position.z = nm ? 6.5 : 10;
+        camera.aspect = nW / nH;
+        camera.updateProjectionMatrix();
+        renderer.setSize(nW, nH);
+      }, { passive: true });
+
+      return { renderer, scene, camera, mesh };
+    }
+
+    const back  = buildScene(cBack,  { rOut: 2.10 * scale, rIn: 0.52 * scale, depth: 0.70 * scale, bevel: 0.16 * scale, emissive: 0.30 });
+    const front = buildScene(cFront, { rOut: 1.65 * scale, rIn: 0.40 * scale, depth: 0.58 * scale, bevel: 0.12 * scale, emissive: 0.18 });
+
+    let mx = 0, my = 0;
+    let smx = 0, smy = 0;
+    let vmx = 0, vmy = 0;
+    let inside = false;
+
+    hero.addEventListener('mousemove', e => {
+      const r = hero.getBoundingClientRect();
+      mx = (e.clientX - r.left) / r.width - 0.5;
+      my = (e.clientY - r.top) / r.height - 0.5;
+      inside = true;
     });
-    geo.center();
+    hero.addEventListener('mouseleave', () => { inside = false; });
 
-    /* Dark glossy body, green emissive glow in shadowed areas */
-    const mat = new THREE.MeshPhysicalMaterial({
-      color: 0x181818,
-      emissive: 0x2ab460,
-      emissiveIntensity: cfg.emissive,
-      metalness: 0.05,
-      roughness: 0.05,
-      clearcoat: 1.0,
-      clearcoatRoughness: 0.03,
-      reflectivity: 1.0,
-    });
+    let astActive = true;
+    new IntersectionObserver(([e]) => { astActive = e.isIntersecting; }, { threshold: 0 }).observe(hero);
 
-    const mesh = new THREE.Mesh(geo, mat);
-    scene.add(mesh);
+    let mob = window.innerWidth < 768;
+    window.addEventListener('resize', () => { mob = window.innerWidth < 768; }, { passive: true });
 
-    scene.add(new THREE.AmbientLight(0x1a2620, 4));
+    function animate() {
+      requestAnimationFrame(animate);
+      if (!astActive) return;
 
-    const key = new THREE.PointLight(0xffffff, 80, 50);
-    key.position.set(-4, 6, 8);
-    scene.add(key);
+      const tx = inside ? mx : 0, ty = inside ? my : 0;
+      vmx = vmx * 0.72 + (tx - smx) * 0.12;
+      vmy = vmy * 0.72 + (ty - smy) * 0.12;
+      smx += vmx; smy += vmy;
 
-    const key2 = new THREE.PointLight(0xeaffef, 40, 45);
-    key2.position.set(5, 3, 6);
-    scene.add(key2);
+      back.mesh.position.x  = ((mob ? -2.0 : -3.8) + smx * (mob ? 1.4 : 3.0)) * scale + biasX;
+      back.mesh.position.y  = ((mob ?  0.9 :  1.4) - smy * (mob ? 1.0 : 2.0)) * scale + biasY;
+      back.mesh.position.z  = mob ? 0.8 : 0;
+      back.mesh.rotation.z -= 0.0024;
+      back.mesh.rotation.x  = smy * 1.0;
+      back.mesh.rotation.y  = smx * 0.85;
+      back.renderer.render(back.scene, back.camera);
 
-    /* Green fill — signature green glow on edges */
-    const greenFront = new THREE.PointLight(0x2ab460, 20, 25);
-    greenFront.position.set(0, -3, 5);
-    scene.add(greenFront);
-
-    const greenBack = new THREE.PointLight(0x2ab460, 12, 20);
-    greenBack.position.set(-3, 3, -5);
-    scene.add(greenBack);
-
-    const rim = new THREE.PointLight(0x224433, 8, 22);
-    rim.position.set(2, -6, -3);
-    scene.add(rim);
-
-    window.addEventListener('resize', () => {
-      const nW = hero.offsetWidth, nH = hero.offsetHeight;
-      const nm = nW < 768;
-      camera.fov = nm ? 62 : 42;
-      camera.position.z = nm ? 6.5 : 10;
-      camera.aspect = nW / nH;
-      camera.updateProjectionMatrix();
-      renderer.setSize(nW, nH);
-    }, { passive: true });
-
-    return { renderer, scene, camera, mesh };
-  }
-
-  const back  = buildScene(cBack,  { rOut: 2.10, rIn: 0.52, depth: 0.70, bevel: 0.16, emissive: 0.30 });
-  const front = buildScene(cFront, { rOut: 1.65, rIn: 0.40, depth: 0.58, bevel: 0.12, emissive: 0.18 });
-
-  let mx = 0, my = 0;
-  let smx = 0, smy = 0;
-  let vmx = 0, vmy = 0;
-  let inside = false;
-
-  hero.addEventListener('mousemove', e => {
-    const r = hero.getBoundingClientRect();
-    mx = (e.clientX - r.left) / r.width - 0.5;
-    my = (e.clientY - r.top) / r.height - 0.5;
-    inside = true;
-  });
-  hero.addEventListener('mouseleave', () => { inside = false; });
-
-  let astActive = true;
-  new IntersectionObserver(([e]) => { astActive = e.isIntersecting; }, { threshold: 0 }).observe(hero);
-
-  let mob = window.innerWidth < 768;
-  window.addEventListener('resize', () => { mob = window.innerWidth < 768; }, { passive: true });
-
-  function animate() {
-    requestAnimationFrame(animate);
-    if (!astActive) return;
-
-    const tx = inside ? mx : 0, ty = inside ? my : 0;
-    vmx = vmx * 0.72 + (tx - smx) * 0.12;
-    vmy = vmy * 0.72 + (ty - smy) * 0.12;
-    smx += vmx; smy += vmy;
-
-    back.mesh.position.x  = (mob ? -2.0 : -3.8) + smx * (mob ? 1.4 : 3.0);
-    back.mesh.position.y  = (mob ?  0.9 :  1.4) - smy * (mob ? 1.0 : 2.0);
-    back.mesh.position.z  = mob ? 0.8 : 0;
-    back.mesh.rotation.z -= 0.0024;
-    back.mesh.rotation.x  = smy * 1.0;
-    back.mesh.rotation.y  = smx * 0.85;
-    back.renderer.render(back.scene, back.camera);
-
-    front.mesh.position.x  = (mob ?  1.8 :  3.2) - smx * (mob ? 1.0 : 2.0);
-    front.mesh.position.y  = (mob ? -1.1 : -1.8) + smy * (mob ? 0.7 : 1.4);
-    front.mesh.position.z  = mob ? 0.8 : 0;
-    front.mesh.rotation.z += 0.0017;
-    front.mesh.rotation.x  = -smy * 0.70;
-    front.mesh.rotation.y  = -smx * 0.55;
-    front.renderer.render(front.scene, front.camera);
-  }
-
-  back.renderer.render(back.scene, back.camera);
-  front.renderer.render(front.scene, front.camera);
-  animate();
-
-  const fadeMs = 1600;
-  setTimeout(() => {
-    back.renderer.render(back.scene, back.camera);
-    cBack.classList.add('ast-visible');
-    setTimeout(() => {
+      front.mesh.position.x  = ((mob ?  1.8 :  3.2) - smx * (mob ? 1.0 : 2.0)) * scale + biasX;
+      front.mesh.position.y  = ((mob ? -1.1 : -1.8) + smy * (mob ? 0.7 : 1.4)) * scale + biasY;
+      front.mesh.position.z  = mob ? 0.8 : 0;
+      front.mesh.rotation.z += 0.0017;
+      front.mesh.rotation.x  = -smy * 0.70;
+      front.mesh.rotation.y  = -smx * 0.55;
       front.renderer.render(front.scene, front.camera);
-      cFront.classList.add('ast-visible');
-    }, 300);
-  }, fadeMs);
+    }
 
-  document.addEventListener('touchstart', function onFirstTouch() {
     back.renderer.render(back.scene, back.camera);
     front.renderer.render(front.scene, front.camera);
-    cBack.classList.add('ast-visible');
-    cFront.classList.add('ast-visible');
-  }, { once: true, passive: true });
+    animate();
+
+    const fadeMs = 1600;
+    setTimeout(() => {
+      back.renderer.render(back.scene, back.camera);
+      cBack.classList.add('ast-visible');
+      setTimeout(() => {
+        front.renderer.render(front.scene, front.camera);
+        cFront.classList.add('ast-visible');
+      }, 300);
+    }, fadeMs);
+
+    document.addEventListener('touchstart', function onFirstTouch() {
+      back.renderer.render(back.scene, back.camera);
+      front.renderer.render(front.scene, front.camera);
+      cBack.classList.add('ast-visible');
+      cFront.classList.add('ast-visible');
+    }, { once: true, passive: true });
+  }
+
+  mountAsterisks(
+    document.getElementById('heroIntroWrap'),
+    document.getElementById('astCanvasBack'),
+    document.getElementById('astCanvasFront'),
+    1
+  );
+
+  mountAsterisks(
+    document.getElementById('cdHero'),
+    document.getElementById('cdAstCanvasBack'),
+    document.getElementById('cdAstCanvasFront'),
+    0.4,
+    2.6,
+    -0.3
+  );
 })();
