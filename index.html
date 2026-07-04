@@ -72,13 +72,6 @@
 
       <canvas class="ast-canvas ast-back" id="astCanvasBack" aria-hidden="true"></canvas>
 
-      <div class="hero-pill">
-        <span class="hero-top-labels">Cohort 05 Enrolling Now — Content · Branding · Growth</span>
-        <span class="hero-pill-arrow">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-        </span>
-      </div>
-
       <canvas class="ast-canvas ast-front" id="astCanvasFront" aria-hidden="true"></canvas>
 
       <h1 class="hero-headline">Building Future-Ready Professionals.</h1>
@@ -86,25 +79,6 @@
       <div class="hero-cta-row">
         <a href="#curriculum" class="hero-btn hero-btn-outline">Explore Courses</a>
         <a href="#contact" class="hero-btn hero-btn-solid">Enquire Now &rarr;</a>
-      </div>
-    </div>
-
-    <div class="filmstrip-section" aria-label="Cohort highlights">
-      <div class="filmstrip-row">
-        <div class="filmstrip-inner">
-        <div class="filmstrip-track">
-          <div class="filmstrip-frame"><span>LIVE SESSION 01</span></div>
-          <div class="filmstrip-frame"><span>COHORT 04 DEMO DAY</span></div>
-          <div class="filmstrip-frame"><span>REEL WORKSHOP</span></div>
-          <div class="filmstrip-frame"><span>1:1 MENTORSHIP</span></div>
-          <div class="filmstrip-frame"><span>BRAND SPRINT</span></div>
-          <div class="filmstrip-frame"><span>AD LAB</span></div>
-          <div class="filmstrip-frame"><span>PORTFOLIO REVIEW</span></div>
-          <div class="filmstrip-frame"><span>GRADUATION</span></div>
-          <div class="filmstrip-frame"><span>CAMPUS MEETUP</span></div>
-          <div class="filmstrip-frame"><span>CREATOR PANEL</span></div>
-        </div>
-        </div>
       </div>
     </div>
 
@@ -120,10 +94,9 @@
       </h3>
       <span class="cur-underline"></span>
       <p class="cur-desc">Become a modern marketer mastered with the strategies, tools, and practical experience needed to grow brands in today's <em>digital-first world</em>.</p>
-      <a href="courses/modern-marketing-architect.html" class="cur-explore">
-        <span class="cur-explore-text">Explore More</span>
+      <button type="button" class="cur-explore" data-course="mma" data-page="courses/modern-marketing-architect.html" data-format="Offline" data-duration="4mo + 2mo Internship" data-modules="11 Modules" data-after="Placement Assistance" aria-label="View Modern Marketing Architect details">
         <span class="cur-explore-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
-      </a>
+      </button>
     </div>
 
     <div class="cur-card">
@@ -134,10 +107,9 @@
       </h3>
       <span class="cur-underline"></span>
       <p class="cur-desc">Master AI-powered content creation, filmmaking, automation, and <em>creative workflows</em> using the latest tools and technologies.</p>
-      <a href="courses/ai-contentology.html" class="cur-explore">
-        <span class="cur-explore-text">Explore More</span>
+      <button type="button" class="cur-explore" data-course="aic" data-page="courses/ai-contentology.html" data-format="Online" data-duration="2mo + 1mo Internship" data-modules="9 Modules" data-after="Freelance Mentorship" aria-label="View AI Contentology details">
         <span class="cur-explore-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
-      </a>
+      </button>
     </div>
 
     <div class="cur-card">
@@ -148,12 +120,33 @@
       </h3>
       <span class="cur-underline"></span>
       <p class="cur-desc">Learn storytelling, content psychology and platform strategies to create content that <em>builds audiences and businesses</em>.</p>
-      <a href="courses/content-creation.html" class="cur-explore">
-        <span class="cur-explore-text">Explore More</span>
+      <button type="button" class="cur-explore" data-course="cc" data-page="courses/content-creation.html" data-format="Online" data-duration="1 Month" data-modules="6 Modules" data-after="Portfolio Review" aria-label="View Content Creation details">
         <span class="cur-explore-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
-      </a>
+      </button>
     </div>
   </section>
+
+  <div class="course-modal" id="courseModal" aria-hidden="true">
+    <div class="course-modal-backdrop" data-modal-close></div>
+    <div class="course-modal-panel" role="dialog" aria-modal="true" aria-labelledby="courseModalTitle">
+      <button type="button" class="course-modal-close" data-modal-close aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <h3 class="course-modal-title" id="courseModalTitle"></h3>
+      <p class="course-modal-desc" id="courseModalDesc"></p>
+      <div class="course-modal-facts">
+        <div class="course-modal-fact"><span class="course-modal-fact-label">Format</span><span class="course-modal-fact-val" id="courseModalFormat"></span></div>
+        <div class="course-modal-fact"><span class="course-modal-fact-label">Duration</span><span class="course-modal-fact-val" id="courseModalDuration"></span></div>
+        <div class="course-modal-fact"><span class="course-modal-fact-label">Modules</span><span class="course-modal-fact-val" id="courseModalModules"></span></div>
+        <div class="course-modal-fact"><span class="course-modal-fact-label">After Course</span><span class="course-modal-fact-val" id="courseModalAfter"></span></div>
+      </div>
+      <div class="course-modal-actions">
+        <button type="button" class="course-modal-btn course-modal-btn--ghost" id="courseModalBrochure">Request Brochure</button>
+        <button type="button" class="course-modal-btn course-modal-btn--solid" id="courseModalEnroll">Enroll Now &rarr;</button>
+        <a class="course-modal-btn course-modal-btn--ghost" id="courseModalExplore" href="#">Full Detail &rarr;</a>
+      </div>
+    </div>
+  </div>
 
   <section id="why" class="why-section fade-in">
     <div class="why-grid">

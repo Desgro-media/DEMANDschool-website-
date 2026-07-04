@@ -50,9 +50,13 @@
 
 /* ── Download Brochure — print the page itself, chrome stripped
    out and colors flipped for paper via the @media print rules
-   in courses.css ── */
+   in courses.css. Also auto-triggers on arrival from the home
+   page's "Request Brochure" modal button (?brochure=1). ── */
 (function initDownloadBrochure() {
   const buttons = document.querySelectorAll('.cd-download-btn');
-  if (!buttons.length) return;
-  buttons.forEach(btn => btn.addEventListener('click', () => window.print()));
+  if (buttons.length) buttons.forEach(btn => btn.addEventListener('click', () => window.print()));
+
+  if (new URLSearchParams(location.search).get('brochure') === '1') {
+    window.addEventListener('load', () => setTimeout(() => window.print(), 300));
+  }
 })();

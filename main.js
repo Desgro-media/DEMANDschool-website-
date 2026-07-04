@@ -107,11 +107,9 @@
     const schoolDelay = charInners.length * 50 + 60;
     setTimeout(() => { if (schoolEl) schoolEl.classList.add('anim-in'); }, schoolDelay);
 
-    const labels   = document.querySelector('.hero-pill');
     const headline = document.querySelector('.hero-headline');
     const tagline  = document.querySelector('.hero-tagline');
     const ctaRow   = document.querySelector('.hero-cta-row');
-    setTimeout(() => { if (labels)   labels.classList.add('anim-in'); }, 60);
     setTimeout(() => { if (headline) headline.classList.add('anim-in'); }, 340);
     setTimeout(() => { if (tagline)  tagline.classList.add('anim-in'); }, 400);
     setTimeout(() => { if (ctaRow)   ctaRow.classList.add('anim-in'); }, 460);
@@ -138,6 +136,12 @@
 
 })();
 
+const COURSE_LABELS = {
+  mma: 'Modern Marketing Architect (MMA)',
+  aic: 'AI Contentology (AIC)',
+  cc: 'Content Creation (CC)'
+};
+
 /* ──────────────────────────────────────────
    Contact form: pre-select the course when a course
    detail page's "Enroll Now" link lands here with
@@ -147,12 +151,71 @@
   const select = document.querySelector('#enquiryForm select[name="course"]');
   if (!select) return;
   const param = new URLSearchParams(location.search).get('enroll');
-  const map = {
-    mma: 'Modern Marketing Architect (MMA)',
-    aic: 'AI Contentology (AIC)',
-    cc: 'Content Creation (CC)'
-  };
-  if (param && map[param]) select.value = map[param];
+  if (param && COURSE_LABELS[param]) select.value = COURSE_LABELS[param];
+})();
+
+/* ──────────────────────────────────────────
+   Curriculum cards: clicking the arrow opens a quick-view
+   modal (details + brochure/enroll/explore) instead of
+   navigating straight to the course page
+────────────────────────────────────────── */
+(function initCourseModal() {
+  const modal      = document.getElementById('courseModal');
+  const titleEl    = document.getElementById('courseModalTitle');
+  const descEl     = document.getElementById('courseModalDesc');
+  const formatEl   = document.getElementById('courseModalFormat');
+  const durationEl = document.getElementById('courseModalDuration');
+  const modulesEl  = document.getElementById('courseModalModules');
+  const afterEl    = document.getElementById('courseModalAfter');
+  const brochureBtn = document.getElementById('courseModalBrochure');
+  const enrollBtn  = document.getElementById('courseModalEnroll');
+  const exploreLink = document.getElementById('courseModalExplore');
+  const triggers   = document.querySelectorAll('.cur-explore');
+  if (!modal || !triggers.length) return;
+
+  let activePage = '#';
+  let activeCourse = '';
+
+  function openModal(card, btn) {
+    activeCourse = btn.dataset.course;
+    activePage = btn.dataset.page;
+    titleEl.innerHTML = card.querySelector('.cur-title').innerHTML;
+    descEl.innerHTML = card.querySelector('.cur-desc').innerHTML;
+    formatEl.textContent = btn.dataset.format;
+    durationEl.textContent = btn.dataset.duration;
+    modulesEl.textContent = btn.dataset.modules;
+    afterEl.textContent = btn.dataset.after;
+    exploreLink.href = activePage;
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  triggers.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.cur-card');
+      if (!card) return;
+      openModal(card, btn);
+    });
+  });
+
+  modal.querySelectorAll('[data-modal-close]').forEach(el => el.addEventListener('click', closeModal));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+
+  brochureBtn.addEventListener('click', () => { location.href = activePage + '?brochure=1'; });
+
+  enrollBtn.addEventListener('click', () => {
+    const select = document.querySelector('#enquiryForm select[name="course"]');
+    if (select && COURSE_LABELS[activeCourse]) select.value = COURSE_LABELS[activeCourse];
+    closeModal();
+    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+  });
 })();
 
 /* ══════════════════════════════════════════════════════
@@ -369,6 +432,7 @@
   }
 
   function rotate() {
+    if (wrap.matches(':hover')) return;
     order.push(order.shift());
     render();
   }
