@@ -512,246 +512,50 @@ const COURSE_LABELS = {
 })();
 
 /* ══════════════════════════════════════════════════════
-   3D ROTATING RING — mentor carousel
+   MENTORS — photo grid: staggered scroll reveal, cursor-tilt
+   + mouse-follow spotlight glow per tile
 ══════════════════════════════════════════════════════ */
-(function initRing() {
-  const track    = document.getElementById('ringTrack');
-  const viewport = document.getElementById('ringViewport');
-  if (!track || !viewport) return;
+(function initMentorsGrid() {
+  const tiles = Array.from(document.querySelectorAll('.mentor-tile'));
+  if (!tiles.length) return;
 
-  const cards = Array.from(track.querySelectorAll('.mentor-card'));
-  const N = cards.length;
-
-  const isMobile  = () => window.innerWidth < 768;
-  const getRadius = () => isMobile() ? 220 : 360;
-  const getCardW  = () => isMobile() ? 120 : 175;
-  const getCardH  = () => isMobile() ? 160 : 230;
-
-  const TILT_X = -14;
-  const TILT_Z = -18;
-
-  const POP_Z     = 60;
-  const POP_SCALE = 1.18;
-
-  const HOVER_IN_MS  = 480;
-  const HOVER_OUT_MS = 360;
-
-  const FRICTION   = 0.96;
-  const IDLE_SPEED = 0.28;
-  const MAX_VEL    = 8;
-  const IDLE_NUDGE = IDLE_SPEED * (1 / FRICTION - 1);
-
-  function positionCards() {
-    const r  = getRadius();
-    const cw = getCardW();
-    const ch = getCardH();
-    cards.forEach((card, i) => {
-      const angle = (360 / N) * i;
-      card.style.width      = cw + 'px';
-      card.style.height     = ch + 'px';
-      card.style.marginLeft = (-cw / 2) + 'px';
-      card.style.marginTop  = (-ch / 2) + 'px';
-      card.dataset.baseAngle = String(angle);
-      card.style.transform = `rotateY(${angle}deg) translateZ(${r}px)`;
+  const revealIO = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const i = tiles.indexOf(e.target);
+      setTimeout(() => e.target.classList.add('row-in'), i * 70);
+      revealIO.unobserve(e.target);
     });
-  }
+  }, { threshold: 0.15 });
+  tiles.forEach(t => revealIO.observe(t));
 
-  positionCards();
-  window.addEventListener('resize', positionCards, { passive: true });
+  const MAX_TILT = 8;
+  tiles.forEach(tile => {
+    const inner = tile.querySelector('.mentor-tile-inner');
+    const photoBg = tile.querySelector('.mentor-photo-bg');
+    if (!inner) return;
 
-  let currentAngle = 0;
-  let velocity = 0;
-  let dragging = false;
-
-  let hoveredCard = null;
-  let hoverProgress = 0;
-  let hoverDir = 0;
-  let exitingCard = null;
-  let exitProgress = 0;
-  let hoverExitTimer = null;
-  let prevTime = 0;
-
-  function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
-
-  function setRingAngle(deg) {
-    track.style.transform = `rotateX(${TILT_X}deg) rotateZ(${TILT_Z}deg) rotateY(${deg}deg)`;
-  }
-
-  function buildHoverTransform(p) {
-    const ep = easeOutCubic(p);
-    return `translateZ(${POP_Z * ep}px) scale(${1 + (POP_SCALE - 1) * ep})`;
-  }
-
-  function clearHover() {
-    if (hoverExitTimer) { clearTimeout(hoverExitTimer); hoverExitTimer = null; }
-    if (exitingCard) {
-      const inner = exitingCard._inner;
-      if (inner) inner.style.transform = '';
-      exitingCard.classList.remove('card-hovered');
-      exitingCard = null;
-      exitProgress = 0;
-    }
-    if (!hoveredCard) return;
-    const inner = hoveredCard._inner;
-    if (inner) inner.style.transform = '';
-    hoveredCard.classList.remove('card-hovered');
-    hoveredCard = null;
-    hoverDir = 0;
-    hoverProgress = 0;
-  }
-
-  function startHoverEnter(card) {
-    if (dragging) return;
-    if (hoverExitTimer) { clearTimeout(hoverExitTimer); hoverExitTimer = null; }
-
-    if (hoveredCard === card) {
-      hoverDir = 1;
-      card.classList.add('card-hovered');
-      return;
-    }
-
-    if (hoveredCard) {
-      if (exitingCard) {
-        const pi = exitingCard._inner;
-        if (pi) pi.style.transform = '';
-        exitingCard.classList.remove('card-hovered');
+    tile.addEventListener('mousemove', e => {
+      const r = tile.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width;
+      const py = (e.clientY - r.top) / r.height;
+      const rotY = (px - 0.5) * MAX_TILT * 2;
+      const rotX = (0.5 - py) * MAX_TILT * 2;
+      inner.style.transform = `translateY(-6px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+      if (photoBg) {
+        photoBg.style.setProperty('--mx', (px * 100) + '%');
+        photoBg.style.setProperty('--my', (py * 100) + '%');
       }
-      exitingCard = hoveredCard;
-      exitingCard._inner = hoveredCard._inner;
-      exitProgress = hoverProgress;
-      exitingCard.classList.remove('card-hovered');
-      hoveredCard = null;
-      hoverProgress = 0;
-      hoverDir = 0;
-    }
+    });
 
-    hoveredCard = card;
-    hoveredCard._inner = card.querySelector('.card-inner');
-    hoverDir = 1;
-    card.classList.add('card-hovered');
-  }
-
-  function startHoverExit(card) {
-    if (!hoveredCard || hoveredCard !== card) return;
-    if (hoverExitTimer) clearTimeout(hoverExitTimer);
-    hoverExitTimer = setTimeout(() => {
-      hoverExitTimer = null;
-      if (!hoveredCard || hoveredCard !== card) return;
-      hoverDir = -1;
-      hoveredCard.classList.remove('card-hovered');
-    }, 60);
-  }
-
-  function finishHoverExit() {
-    if (!hoveredCard) return;
-    const inner = hoveredCard._inner;
-    if (inner) inner.style.transform = '';
-    hoveredCard.classList.remove('card-hovered');
-    hoveredCard = null;
-    hoverDir = 0;
-    hoverProgress = 0;
-  }
-
-  let lastDragX = 0;
-  let lastDragT = 0;
-
-  function onDragStart(x) {
-    clearHover();
-    dragging = true;
-    lastDragX = x;
-    lastDragT = performance.now();
-    velocity = 0;
-  }
-
-  function onDragMove(x) {
-    if (!dragging) return;
-    const dx = x - lastDragX;
-    const dt = performance.now() - lastDragT;
-    velocity = Math.max(-MAX_VEL, Math.min(MAX_VEL, (dx / (dt || 1)) * 1.3));
-    currentAngle += dx * 0.15;
-    setRingAngle(currentAngle);
-    lastDragX = x;
-    lastDragT = performance.now();
-  }
-
-  function onDragEnd() {
-    if (!dragging) return;
-    dragging = false;
-  }
-
-  viewport.addEventListener('mousedown', e => { onDragStart(e.clientX); e.preventDefault(); });
-  window.addEventListener('mousemove', e => { if (dragging) onDragMove(e.clientX); });
-  window.addEventListener('mouseup', onDragEnd);
-
-  viewport.addEventListener('touchstart', e => { onDragStart(e.touches[0].clientX); }, { passive: true });
-  viewport.addEventListener('touchmove', e => { if (dragging) onDragMove(e.touches[0].clientX); }, { passive: true });
-  viewport.addEventListener('touchend', onDragEnd);
-
-  viewport.addEventListener('mouseleave', () => { if (hoveredCard) startHoverExit(hoveredCard); });
-
-  let inView = false;
-  const visIO = new IntersectionObserver(en => { inView = en[0].isIntersecting; }, { threshold: 0.2 });
-  visIO.observe(viewport);
-
-  window.addEventListener('wheel', e => {
-    if (!inView) return;
-    velocity = Math.max(-MAX_VEL, Math.min(MAX_VEL, velocity + e.deltaY * 0.015));
-  }, { passive: true });
-
-  let lastScrollY = window.scrollY;
-  window.addEventListener('scroll', () => {
-    if (!inView) return;
-    const dy = window.scrollY - lastScrollY;
-    lastScrollY = window.scrollY;
-    velocity = Math.max(-MAX_VEL, Math.min(MAX_VEL, velocity + dy * 0.04));
-  }, { passive: true });
-
-  cards.forEach(card => {
-    card.addEventListener('mouseenter', () => startHoverEnter(card));
-    card.addEventListener('mouseleave', () => startHoverExit(card));
+    tile.addEventListener('mouseleave', () => {
+      inner.style.transform = '';
+      if (photoBg) {
+        photoBg.style.removeProperty('--mx');
+        photoBg.style.removeProperty('--my');
+      }
+    });
   });
-
-  function masterLoop(now) {
-    const dt = prevTime ? Math.min(now - prevTime, 50) : 16;
-    prevTime = now;
-
-    if (!dragging && !hoveredCard && velocity < IDLE_SPEED) {
-      velocity = Math.min(IDLE_SPEED, velocity + IDLE_NUDGE);
-    }
-
-    if (!dragging) velocity *= FRICTION;
-    currentAngle += velocity;
-    setRingAngle(currentAngle);
-
-    if (exitingCard) {
-      exitProgress = Math.max(0, exitProgress - dt / HOVER_OUT_MS);
-      const inner = exitingCard._inner;
-      if (exitProgress === 0) {
-        if (inner) inner.style.transform = '';
-        exitingCard = null;
-      } else if (inner) {
-        inner.style.transform = buildHoverTransform(exitProgress);
-      }
-    }
-
-    if (hoverDir !== 0 || hoveredCard) {
-      if (hoverDir === 1) {
-        hoverProgress = Math.min(1, hoverProgress + dt / HOVER_IN_MS);
-      } else if (hoverDir === -1) {
-        hoverProgress = Math.max(0, hoverProgress - dt / HOVER_OUT_MS);
-        if (hoverProgress === 0) { finishHoverExit(); }
-      }
-      if (hoveredCard) {
-        const inner = hoveredCard._inner;
-        if (inner) inner.style.transform = buildHoverTransform(hoverProgress);
-      }
-    }
-
-    requestAnimationFrame(masterLoop);
-  }
-
-  setRingAngle(0);
-  requestAnimationFrame(masterLoop);
 })();
 
 /* ══════════════════════════════════════════════════════
@@ -790,10 +594,17 @@ const COURSE_LABELS = {
      its own (smaller) hero instead of drifting out of it. `biasX`/`biasY`
      shift the whole pair so they clear left-aligned copy instead of
      sitting centered the way the homepage's centered hero wants them. */
-  function mountAsterisks(hero, cBack, cFront, scale, biasX, biasY) {
+  function mountAsterisks(hero, cBack, cFront, scale, biasX, biasY, mobBiasX, mobBiasY) {
     if (!hero || !cBack || !cFront) return;
     biasX = biasX || 0;
     biasY = biasY || 0;
+    /* On phones the mobile-tuned base offsets above already clear the
+       (stacked, not side-by-side) copy, so callers that only need the
+       bias to dodge desktop's wide centered/left-aligned text can pass
+       mobBiasX/mobBiasY = 0 to skip it there. Defaults to biasX/biasY
+       so callers that don't pass them keep their original behavior. */
+    mobBiasX = mobBiasX === undefined ? biasX : mobBiasX;
+    mobBiasY = mobBiasY === undefined ? biasY : mobBiasY;
 
     function buildScene(canvas, cfg) {
       const W = hero.offsetWidth, H = hero.offsetHeight;
@@ -905,16 +716,16 @@ const COURSE_LABELS = {
       vmy = vmy * 0.72 + (ty - smy) * 0.12;
       smx += vmx; smy += vmy;
 
-      back.mesh.position.x  = ((mob ? -2.0 : -3.8) + smx * (mob ? 1.4 : 3.0)) * scale + biasX;
-      back.mesh.position.y  = ((mob ?  0.9 :  1.4) - smy * (mob ? 1.0 : 2.0)) * scale + biasY;
+      back.mesh.position.x  = ((mob ? -2.0 : -3.8) + smx * (mob ? 1.4 : 3.0)) * scale + (mob ? mobBiasX : biasX);
+      back.mesh.position.y  = ((mob ?  0.9 :  1.4) - smy * (mob ? 1.0 : 2.0)) * scale + (mob ? mobBiasY : biasY);
       back.mesh.position.z  = mob ? 0.8 : 0;
       back.mesh.rotation.z -= 0.0024;
       back.mesh.rotation.x  = smy * 1.0;
       back.mesh.rotation.y  = smx * 0.85;
       back.renderer.render(back.scene, back.camera);
 
-      front.mesh.position.x  = ((mob ?  1.8 :  3.2) - smx * (mob ? 1.0 : 2.0)) * scale + biasX;
-      front.mesh.position.y  = ((mob ? -1.1 : -1.8) + smy * (mob ? 0.7 : 1.4)) * scale + biasY;
+      front.mesh.position.x  = ((mob ?  1.8 :  3.2) - smx * (mob ? 1.0 : 2.0)) * scale + (mob ? mobBiasX : biasX);
+      front.mesh.position.y  = ((mob ? -1.1 : -1.8) + smy * (mob ? 0.7 : 1.4)) * scale + (mob ? mobBiasY : biasY);
       front.mesh.position.z  = mob ? 0.8 : 0;
       front.mesh.rotation.z += 0.0017;
       front.mesh.rotation.x  = -smy * 0.70;
@@ -948,7 +759,11 @@ const COURSE_LABELS = {
     document.getElementById('heroIntroWrap'),
     document.getElementById('astCanvasBack'),
     document.getElementById('astCanvasFront'),
-    1
+    1,
+    -1.7,
+    0,
+    0,
+    0
   );
 
   mountAsterisks(

@@ -39,7 +39,7 @@
 
 .cd-title {
   position: relative; z-index: 20;
-  font-family: var(--font-display); font-weight: 400;
+  font-family: var(--font-display); font-weight: 700;
   font-size: clamp(36px, 5.6vw, 74px); line-height: 1.04; letter-spacing: -1px;
   text-transform: uppercase; color: var(--white); max-width: 920px; margin-bottom: 20px;
 }
@@ -47,7 +47,7 @@
 
 .cd-kicker {
   position: relative; z-index: 20;
-  font-family: var(--font-display); font-size: clamp(15px, 1.8vw, 20px);
+  font-family: var(--font-display); font-weight: 700; font-size: clamp(15px, 1.8vw, 20px);
   text-transform: uppercase; letter-spacing: 0.3px; color: var(--green); margin-bottom: 18px;
 }
 
@@ -67,14 +67,14 @@
 }
 .cd-stat { background: #0a0a0a; padding: 22px 22px; }
 .cd-stat-label { display: block; font-family: var(--font-body); font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 8px; }
-.cd-stat-val { font-family: var(--font-display); font-size: clamp(15px, 1.5vw, 20px); color: var(--white); text-transform: uppercase; letter-spacing: -0.2px; }
+.cd-stat-val { font-family: var(--font-display); font-weight: 700; font-size: clamp(15px, 1.5vw, 20px); color: var(--white); text-transform: uppercase; letter-spacing: -0.2px; }
 
 /* ---------- Section shell ---------- */
 .cd-section { position: relative; padding: 76px 6%; }
 .cd-section + .cd-section { border-top: 1px solid rgba(255,255,255,0.06); }
 .cd-eyebrow { display: flex; align-items: center; gap: 10px; font-family: var(--font-body); font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--green); margin-bottom: 16px; }
 .cd-eyebrow span { width: 24px; height: 2px; background: var(--green); flex-shrink: 0; }
-.cd-h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(28px, 4.2vw, 52px); line-height: 1.05; text-transform: uppercase; color: var(--white); letter-spacing: -1px; margin-bottom: 40px; }
+.cd-h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(28px, 4.2vw, 52px); line-height: 1.05; text-transform: uppercase; color: var(--white); letter-spacing: -1px; margin-bottom: 40px; }
 .cd-h2 em { font-style: normal; color: var(--green); }
 
 /* ---------- Outcomes checklist ---------- */
@@ -109,7 +109,7 @@
   display: flex; align-items: center; justify-content: center;
   font-family: var(--font-body); font-weight: 700; font-size: 13px; color: var(--green);
 }
-.cd-module-title { font-family: var(--font-display); font-size: clamp(15px, 1.5vw, 19px); letter-spacing: 0.2px; text-transform: uppercase; color: var(--white); }
+.cd-module-title { font-family: var(--font-display); font-weight: 700; font-size: clamp(15px, 1.5vw, 19px); letter-spacing: 0.2px; text-transform: uppercase; color: var(--white); }
 
 /* ---------- Proof / real result tie-in ---------- */
 .cd-proof {
@@ -121,12 +121,12 @@
 .cd-proof::before {
   content: '“';
   position: absolute; left: 30px; top: 20px;
-  font-family: var(--font-display); font-size: 90px; line-height: 1; color: rgba(42,180,96,0.15);
+  font-family: var(--font-display); font-weight: 700; font-size: 90px; line-height: 1; color: rgba(42,180,96,0.15);
 }
 .cd-proof-media { flex: 0 0 260px; border-radius: 14px; overflow: hidden; aspect-ratio: 4/3; background: #111; }
 .cd-proof-media img, .cd-proof-media video { width: 100%; height: 100%; object-fit: cover; display: block; }
 .cd-proof-body { position: relative; z-index: 1; }
-.cd-proof-quote { font-family: var(--font-display); font-weight: 400; font-size: clamp(17px, 1.8vw, 23px); line-height: 1.35; color: var(--white); margin-bottom: 14px; }
+.cd-proof-quote { font-family: var(--font-display); font-weight: 700; font-size: clamp(17px, 1.8vw, 23px); line-height: 1.35; color: var(--white); margin-bottom: 14px; }
 .cd-proof-name { display: block; font-family: var(--font-body); font-size: 12px; font-weight: 700; color: var(--green); }
 
 .cd-proof-dual { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 960px; }
@@ -141,7 +141,7 @@
 .cd-faq-q {
   width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 20px;
   padding: 22px 2px; background: none; border: none; cursor: pointer; text-align: left;
-  font-family: var(--font-display); font-weight: 400; font-size: clamp(15px, 1.5vw, 18px); text-transform: uppercase; color: var(--white);
+  font-family: var(--font-display); font-weight: 700; font-size: clamp(15px, 1.5vw, 18px); text-transform: uppercase; color: var(--white);
 }
 .cd-faq-icon {
   flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
@@ -165,13 +165,13 @@
   transform: translateY(110%); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
 }
 .cd-sticky-bar.visible { transform: translateY(0); }
-.cd-sticky-name { font-family: var(--font-display); font-size: clamp(12px, 1.3vw, 16px); text-transform: uppercase; color: var(--white); line-height: 1.3; }
+.cd-sticky-name { font-family: var(--font-display); font-weight: 700; font-size: clamp(12px, 1.3vw, 16px); text-transform: uppercase; color: var(--white); line-height: 1.3; }
 .cd-sticky-name span { display: block; margin-top: 2px; font-family: var(--font-body); font-size: 10.5px; font-weight: 600; text-transform: none; letter-spacing: 0.2px; color: rgba(255,255,255,0.45); }
 .cd-sticky-bar .hero-btn { padding: 12px 22px; font-size: 11px; flex-shrink: 0; }
 
 /* ---------- Final CTA banner ---------- */
 .cd-final-cta { text-align: center; padding: 90px 6% 100px; background: linear-gradient(180deg, var(--black) 0%, #06120c 100%); border-top: 1px solid rgba(255,255,255,0.06); }
-.cd-final-h { font-family: var(--font-display); font-weight: 400; font-size: clamp(30px, 5.4vw, 58px); text-transform: uppercase; color: var(--white); line-height: 1.08; letter-spacing: -1px; margin-bottom: 28px; }
+.cd-final-h { font-family: var(--font-display); font-weight: 700; font-size: clamp(30px, 5.4vw, 58px); text-transform: uppercase; color: var(--white); line-height: 1.08; letter-spacing: -1px; margin-bottom: 28px; }
 .cd-final-h span { color: var(--green); }
 .cd-final-cta .cd-cta-row { justify-content: center; }
 
