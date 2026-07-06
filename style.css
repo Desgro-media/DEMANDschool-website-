@@ -254,7 +254,7 @@ button { font-family: inherit; cursor: pointer; }
   position: relative; z-index: 20;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(34px, 5.4vw, 72px);
+  font-size: clamp(30px, 4.4vw, 58px);
   line-height: 1.06;
   letter-spacing: -0.5px;
   text-transform: uppercase;
@@ -426,7 +426,7 @@ button { font-family: inherit; cursor: pointer; }
 .cur-title {
   position: relative; z-index: 2;
   font-family: var(--font-display); font-weight: 700;
-  font-size: clamp(26px, 2.2vw, 34px);
+  font-size: clamp(24px, 1.9vw, 30px);
   line-height: 1.28;
   text-transform: uppercase;
   margin-bottom: 16px;
@@ -512,7 +512,7 @@ button { font-family: inherit; cursor: pointer; }
 .course-modal-close svg { width: 15px; height: 15px; }
 .course-modal-close:hover { background: rgba(0,0,0,0.07); border-color: rgba(0,0,0,0.25); }
 .course-modal-title {
-  font-family: var(--font-display); font-weight: 700; font-size: clamp(22px, 3vw, 30px); line-height: 1.2;
+  font-family: var(--font-display); font-weight: 700; font-size: clamp(20px, 2.6vw, 26px); line-height: 1.2;
   text-transform: uppercase; color: #111; margin-bottom: 14px; padding-right: 24px;
 }
 .course-modal-title .t-green { color: var(--green); }
@@ -574,7 +574,7 @@ button { font-family: inherit; cursor: pointer; }
 .why-h {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(44px, 6.5vw, 96px);
+  font-size: clamp(36px, 5vw, 72px);
   line-height: 1.02;
   letter-spacing: -1px;
   color: var(--white);
@@ -650,7 +650,7 @@ button { font-family: inherit; cursor: pointer; }
 @media (max-width: 1024px) { .testi-track { animation-duration: 32s; } }
 .testi-eyebrow { display: flex; align-items: center; gap: 10px; font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--green); margin-bottom: 14px; }
 .testi-eyebrow-line { width: 24px; height: 2px; background: var(--green); }
-.testi-title { font-family: var(--font-display); font-weight: 700; font-size: clamp(40px, 6vw, 72px); line-height: 0.95; letter-spacing: -1px; }
+.testi-title { font-family: var(--font-display); font-weight: 700; font-size: clamp(34px, 4.6vw, 56px); line-height: 0.95; letter-spacing: -1px; }
 
 .testi-track-outer { overflow: hidden; }
 .testi-track { display: flex; gap: 22px; width: max-content; animation: testi-marquee 36s linear infinite; }
@@ -708,7 +708,7 @@ button { font-family: inherit; cursor: pointer; }
 .mentors-header { padding: 40px 0 28px 40px; }
 .mentors-eyebrow { display: flex; align-items: center; gap: 10px; font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--green); margin-bottom: 14px; }
 .mentors-eyebrow span { width: 24px; height: 2px; background: var(--green); }
-.mentors-title { font-family: var(--font-display); font-weight: 700; font-size: clamp(52px, 8.5vw, 112px); line-height: 0.92; letter-spacing: -1px; text-transform: uppercase; color: var(--white); overflow-wrap: break-word; }
+.mentors-title { font-family: var(--font-display); font-weight: 700; font-size: clamp(40px, 6.2vw, 80px); line-height: 0.92; letter-spacing: -1px; text-transform: uppercase; color: var(--white); overflow-wrap: break-word; }
 .mentors-title span { color: var(--green); }
 
 .mentors-grid {
@@ -856,7 +856,7 @@ button { font-family: inherit; cursor: pointer; }
 .outcomes-header { padding: 0 40px; margin-bottom: 40px; display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
 .outcomes-eyebrow { display: flex; align-items: center; gap: 10px; font-size: 10px; font-weight: 600; letter-spacing: 3.5px; text-transform: uppercase; color: var(--green); margin-bottom: 8px; flex-basis: 100%; }
 .outcomes-eyebrow span { width: 24px; height: 2px; background: var(--green); }
-.outcomes-title { font-family: var(--font-display); font-weight: 700; font-size: clamp(52px, 9vw, 130px); line-height: 0.95; color: var(--white); text-transform: uppercase; letter-spacing: -2px; }
+.outcomes-title { font-family: var(--font-display); font-weight: 700; font-size: clamp(40px, 6.5vw, 84px); line-height: 0.95; color: var(--white); text-transform: uppercase; letter-spacing: -2px; }
 .outcomes-title span { color: var(--green); }
 
 .outcomes-spotlight { padding: 0 40px; }
@@ -950,7 +950,7 @@ button { font-family: inherit; cursor: pointer; }
 .vibe-line {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(30px, 5vw, 60px);
+  font-size: clamp(26px, 4vw, 46px);
   line-height: 1.15;
   letter-spacing: -0.5px;
   text-transform: uppercase;
@@ -967,7 +967,7 @@ button { font-family: inherit; cursor: pointer; }
 .contact-section { position: relative; display: flex; flex-direction: column; background: var(--black); padding: 100px 6% 0; overflow: hidden; }
 .ct-body { position: relative; display: flex; justify-content: space-between; align-items: center; gap: 40px; flex-wrap: wrap; padding-bottom: 60px; }
 .ct-eyebrow { font-family: var(--font-body); font-size: 12px; font-weight: 700; letter-spacing: 1px; color: var(--green); margin-bottom: 18px; }
-.ct-headline { font-family: var(--font-display); font-weight: 700; font-size: clamp(40px, 8vw, 96px); line-height: 0.95; letter-spacing: -2px; text-transform: uppercase; }
+.ct-headline { font-family: var(--font-display); font-weight: 700; font-size: clamp(34px, 6vw, 72px); line-height: 0.95; letter-spacing: -2px; text-transform: uppercase; }
 .ct-lw { display: block; }
 .ct-line { display: inline-block; color: var(--white); }
 .ct-line--stroke { -webkit-text-stroke: 1.5px var(--white); color: transparent; }
@@ -1047,19 +1047,19 @@ button { font-family: inherit; cursor: pointer; }
 }
 @media (max-width: 768px) {
   .contact-section { padding: 56px 20px 40px; }
-  .ct-headline { font-size: clamp(56px, 14vw, 110px); letter-spacing: -2px; }
+  .ct-headline { font-size: clamp(42px, 10vw, 80px); letter-spacing: -2px; }
   .ct-body { gap: 40px; padding-bottom: 44px; }
   .ct-social-row { padding: 14px 16px; gap: 14px; }
   .ct-social-handle { font-size: clamp(12px, 3.4vw, 14px); }
 }
 @media (max-width: 480px) {
   .contact-section { padding: 56px 20px 0; }
-  .ct-headline { font-size: clamp(48px, 16vw, 86px); letter-spacing: -1.5px; }
+  .ct-headline { font-size: clamp(36px, 12vw, 62px); letter-spacing: -1.5px; }
   .ct-body { padding-bottom: 44px; gap: 28px; }
   .ef-row { flex-direction: column; gap: 14px; }
 }
 @media (max-width: 360px) {
-  .ct-headline { font-size: clamp(40px, 16vw, 68px); }
+  .ct-headline { font-size: clamp(32px, 12vw, 50px); }
 }
 
 /* ============================================================
