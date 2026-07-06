@@ -262,6 +262,45 @@ const COURSE_LABELS = {
   rows.forEach(r => io.observe(r));
 })();
 
+/* ══════════════════════════════════════════════════════
+   MISSION — phrase-by-phrase reveal on scroll, plus a
+   slow parallax drift on the two background glows
+══════════════════════════════════════════════════════ */
+(function initMissionSection() {
+  const section = document.querySelector('.mission-section');
+  const lines   = document.querySelectorAll('.mission-line');
+  const sub     = document.querySelector('.mission-sub');
+  if (!section || !lines.length) return;
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      lines.forEach((line, i) => setTimeout(() => line.classList.add('in-view'), i * 90));
+      if (sub) setTimeout(() => sub.classList.add('in-view'), lines.length * 90 + 150);
+      io.disconnect();
+    });
+  }, { threshold: 0.35 });
+  io.observe(section);
+
+  const blobA = document.querySelector('.mission-blob-a');
+  const blobB = document.querySelector('.mission-blob-b');
+  if (!blobA || !blobB) return;
+
+  let ticking = false;
+  function updateParallax() {
+    ticking = false;
+    const r = section.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > window.innerHeight) return;
+    const progress = 1 - (r.top + r.height / 2) / (window.innerHeight + r.height);
+    blobA.style.transform = `translateY(${progress * 70 - 30}px)`;
+    blobB.style.transform = `translateY(${-progress * 80 + 30}px)`;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(updateParallax); ticking = true; }
+  }, { passive: true });
+  updateParallax();
+})();
+
 /* ──────────────────────────────────────────
    Enquiry form — static site, no backend, so this
    opens the visitor's email client with the details
@@ -382,16 +421,35 @@ const COURSE_LABELS = {
   let order = ITEMS.map((_, i) => i);
   let timer = null;
 
+  function truncate(str, n) {
+    if (str.length <= n) return str;
+    return str.slice(0, n).replace(/\s+\S*$/, '') + '…';
+  }
+
   function buildThumb(idx) {
+    const item = ITEMS[idx];
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'spotlight-thumb spotlight-thumb-enter';
-    btn.setAttribute('aria-label', 'Show ' + ITEMS[idx].shortName);
-    btn.appendChild(nodes[idx]);
+    btn.setAttribute('aria-label', 'Show ' + item.shortName);
+
+    const media = document.createElement('div');
+    media.className = 'spotlight-thumb-media';
+    media.appendChild(nodes[idx]);
+    btn.appendChild(media);
+
+    const info = document.createElement('div');
+    info.className = 'spotlight-thumb-info';
     const label = document.createElement('span');
     label.className = 'spotlight-thumb-label';
-    label.textContent = ITEMS[idx].shortName;
-    btn.appendChild(label);
+    label.textContent = item.shortName;
+    const teaser = document.createElement('span');
+    teaser.className = 'spotlight-thumb-teaser';
+    teaser.textContent = truncate(item.desc, 90);
+    info.appendChild(label);
+    info.appendChild(teaser);
+    btn.appendChild(info);
+
     btn.addEventListener('click', () => focusItem(idx));
     return btn;
   }
@@ -556,6 +614,81 @@ const COURSE_LABELS = {
       }
     });
   });
+})();
+
+/* ══════════════════════════════════════════════════════
+   WHEEL CAROUSEL — mentor cards arranged on a giant wheel;
+   each tick forward eases with anticipation (a small dip
+   backward) then overshoot (a bit past target) before it
+   settles, like a real wheel with spring and momentum.
+══════════════════════════════════════════════════════ */
+(function initWheelCarousel() {
+  const wheel = document.getElementById('mentorsWheel');
+  const track = document.getElementById('wheelTrack');
+  const prevBtn = document.getElementById('wheelPrev');
+  const nextBtn = document.getElementById('wheelNext');
+  if (!wheel || !track) return;
+  const cards = Array.from(track.querySelectorAll('.wheel-card'));
+  if (!cards.length) return;
+
+  const N = cards.length;
+  let active = 0;
+
+  // Card spacing scales with the available width so the wheel's
+  // side cards never push the page into horizontal scroll on narrow
+  // screens — a fixed pixel offset looked fine on desktop but ran
+  // cards straight off a phone viewport.
+  function xStep() {
+    const trackWidth = track.getBoundingClientRect().width || window.innerWidth;
+    return Math.min(240, trackWidth * 0.34);
+  }
+
+  function layout() {
+    const step = xStep();
+    cards.forEach((card, i) => {
+      let offset = i - active;
+      if (offset > N / 2) offset -= N;
+      if (offset < -N / 2) offset += N;
+
+      const abs = Math.abs(offset);
+      const x = offset * step;
+      const scale = Math.max(0.62, 1 - abs * 0.24);
+      const rotY = offset * -22;
+      const z = -abs * 160;
+      const opacity = abs > 2 ? 0 : 1 - abs * 0.34;
+
+      card.style.transform = `translateX(-50%) translateX(${x}px) translateZ(${z}px) rotateY(${rotY}deg) scale(${scale})`;
+      card.style.opacity = String(opacity);
+      card.style.zIndex = String(100 - abs);
+      card.style.pointerEvents = abs > 2 ? 'none' : 'auto';
+      card.classList.toggle('is-active', offset === 0);
+      card.setAttribute('aria-hidden', offset === 0 ? 'false' : 'true');
+    });
+  }
+
+  window.addEventListener('resize', layout, { passive: true });
+
+  function goTo(idx) {
+    active = ((idx % N) + N) % N;
+    layout();
+  }
+
+  cards.forEach((card, i) => card.addEventListener('click', () => {
+    if (i !== active) goTo(i);
+  }));
+  if (prevBtn) prevBtn.addEventListener('click', () => { goTo(active - 1); resetTimer(); });
+  if (nextBtn) nextBtn.addEventListener('click', () => { goTo(active + 1); resetTimer(); });
+
+  let timer = null;
+  function resetTimer() {
+    clearInterval(timer);
+    timer = setInterval(() => goTo(active + 1), 4000);
+  }
+  wheel.addEventListener('mouseenter', () => clearInterval(timer));
+  wheel.addEventListener('mouseleave', resetTimer);
+
+  layout();
+  resetTimer();
 })();
 
 /* ══════════════════════════════════════════════════════
