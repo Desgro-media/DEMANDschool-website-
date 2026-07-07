@@ -331,16 +331,115 @@ const COURSE_LABELS = {
 })();
 
 /* ══════════════════════════════════════════════════════
-   TESTIMONIALS MARQUEE — duplicate content once for a
-   seamless CSS translateX(-50%) loop
+   TESTIMONIALS — auto-scrolling strip (content duplicated
+   once for a seamless loop), draggable with mouse/touch,
+   and clicking a card opens a quick-view modal.
 ══════════════════════════════════════════════════════ */
-(function initTestiMarquee() {
+(function initTestiCarousel() {
+  const outer = document.querySelector('.testi-track-outer');
   const track = document.getElementById('testiTrack');
-  if (!track) return;
+  if (!outer || !track) return;
+
   const clone = track.cloneNode(true);
   clone.removeAttribute('id');
   clone.setAttribute('aria-hidden', 'true');
   Array.from(clone.children).forEach(child => track.appendChild(child));
+
+  let offset = 0;
+  let dragging = false;
+  let dragMoved = false;
+  let startX = 0;
+  let startOffset = 0;
+  let paused = false;
+  const SPEED = 0.45;
+
+  function wrap() {
+    const half = track.scrollWidth / 2;
+    if (half > 0) offset = ((offset % half) + half) % half;
+  }
+  function apply() { track.style.transform = `translateX(${-offset}px)`; }
+
+  function loop() {
+    requestAnimationFrame(loop);
+    if (dragging || paused) return;
+    offset += SPEED;
+    wrap();
+    apply();
+  }
+  loop();
+
+  function down(x) {
+    dragging = true;
+    dragMoved = false;
+    startX = x;
+    startOffset = offset;
+    outer.classList.add('dragging');
+  }
+  function move(x) {
+    if (!dragging) return;
+    if (Math.abs(x - startX) > 4) dragMoved = true;
+    offset = startOffset - (x - startX);
+    wrap();
+    apply();
+  }
+  function up() {
+    dragging = false;
+    outer.classList.remove('dragging');
+  }
+
+  outer.addEventListener('mousedown', e => { down(e.clientX); e.preventDefault(); });
+  window.addEventListener('mousemove', e => move(e.clientX));
+  window.addEventListener('mouseup', up);
+  outer.addEventListener('touchstart', e => down(e.touches[0].clientX), { passive: true });
+  outer.addEventListener('touchmove', e => move(e.touches[0].clientX), { passive: true });
+  outer.addEventListener('touchend', up);
+  outer.addEventListener('mouseenter', () => { paused = true; });
+  outer.addEventListener('mouseleave', () => { paused = false; });
+
+  /* ── click a card (not a drag release) to open the quick-view modal ── */
+  const modal = document.getElementById('testiModal');
+  if (!modal) return;
+  const imgEl = document.getElementById('testiModalImg');
+  const initialEl = document.getElementById('testiModalInitial');
+  const quoteEl = document.getElementById('testiModalQuote');
+  const nameEl = document.getElementById('testiModalName');
+  const roleEl = document.getElementById('testiModalRole');
+
+  function closeModal() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  track.addEventListener('click', e => {
+    if (dragMoved) return;
+    const card = e.target.closest('.testi-card');
+    if (!card) return;
+
+    quoteEl.textContent = card.querySelector('.testi-quote').textContent;
+    nameEl.textContent = card.querySelector('.testi-name').textContent;
+    roleEl.textContent = card.querySelector('.testi-role').textContent;
+
+    const photo = card.querySelector('.testi-avatar--photo img');
+    if (photo) {
+      imgEl.src = photo.src;
+      imgEl.alt = photo.alt;
+      imgEl.style.objectPosition = photo.dataset.modalPos || 'center';
+      imgEl.style.display = '';
+      initialEl.style.display = 'none';
+    } else {
+      initialEl.textContent = card.querySelector('.testi-avatar').textContent;
+      initialEl.style.display = '';
+      imgEl.style.display = 'none';
+    }
+
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  });
+
+  modal.querySelectorAll('[data-testi-modal-close]').forEach(el => el.addEventListener('click', closeModal));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
 })();
 
 /* ══════════════════════════════════════════════════════
@@ -442,7 +541,7 @@ const COURSE_LABELS = {
     info.className = 'spotlight-thumb-info';
     const label = document.createElement('span');
     label.className = 'spotlight-thumb-label';
-    label.textContent = item.shortName;
+    label.textContent = item.name;
     const teaser = document.createElement('span');
     teaser.className = 'spotlight-thumb-teaser';
     teaser.textContent = truncate(item.desc, 90);

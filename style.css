@@ -660,9 +660,9 @@ button { font-family: inherit; cursor: pointer; }
   width: 420px; height: 420px; bottom: -160px; right: -100px;
   background: radial-gradient(circle, rgba(42,180,96,0.18), rgba(42,180,96,0) 70%);
 }
-.mission-inner { position: relative; z-index: 1; max-width: 980px; margin: 0 auto; }
+.mission-inner { position: relative; z-index: 1; max-width: 980px; margin: 0 auto; text-align: center; }
 .mission-eyebrow {
-  display: flex; align-items: center; gap: 10px;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
   font-family: var(--font-body); font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
   color: var(--green); margin-bottom: 30px;
 }
@@ -690,6 +690,7 @@ button { font-family: inherit; cursor: pointer; }
 .mission-sub {
   font-family: var(--font-body); font-size: 15px; line-height: 1.9;
   color: rgba(255,255,255,0.55); max-width: 640px;
+  margin: 0 auto;
   opacity: 0; transform: translateY(16px);
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
@@ -715,28 +716,34 @@ button { font-family: inherit; cursor: pointer; }
    ============================================================ */
 .testi-section { padding: 80px 0 100px; overflow: hidden; }
 .testi-header { padding: 0 6%; margin-bottom: 48px; }
-@media (max-width: 1024px) { .testi-track { animation-duration: 32s; } }
 .testi-eyebrow { display: flex; align-items: center; gap: 10px; font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--green); margin-bottom: 14px; }
 .testi-eyebrow-line { width: 24px; height: 2px; background: var(--green); }
 .testi-title { font-family: var(--font-display); font-weight: 700; font-size: clamp(34px, 4.6vw, 56px); line-height: 0.95; letter-spacing: -1px; }
 
-.testi-track-outer { overflow: hidden; }
-.testi-track { display: flex; gap: 22px; width: max-content; animation: testi-marquee 36s linear infinite; }
-.testi-track-outer:hover .testi-track { animation-play-state: paused; }
-@keyframes testi-marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+.testi-track-outer { overflow: hidden; cursor: grab; }
+.testi-track-outer.dragging { cursor: grabbing; }
+.testi-track { display: flex; gap: 22px; width: max-content; }
+.testi-track, .testi-track * { user-select: none; -webkit-user-select: none; }
 
 .testi-card {
   flex: 0 0 300px;
+  height: 300px;
+  display: flex; flex-direction: column;
   background: #0c0f0d;
   border: 1px solid rgba(255,255,255,0.07);
   border-radius: 16px;
   padding: 28px 26px;
+  cursor: pointer;
   transition: transform 0.65s cubic-bezier(0.23,1,0.32,1), box-shadow 0.65s ease, border-color 0.3s ease;
   box-shadow: 0 20px 60px rgba(0,0,0,0.5);
 }
 .testi-card:hover { transform: translateY(-8px); border-color: rgba(42,180,96,0.4); }
-.testi-quote { font-size: 13px; line-height: 1.85; color: rgba(255,255,255,0.75); margin-bottom: 22px; min-height: 110px; }
-.testi-person { display: flex; align-items: center; gap: 12px; }
+.testi-quote {
+  flex: 1 1 auto; min-height: 0;
+  font-size: 13px; line-height: 1.85; color: rgba(255,255,255,0.75); margin-bottom: 22px;
+  display: -webkit-box; -webkit-line-clamp: 7; -webkit-box-orient: vertical; overflow: hidden;
+}
+.testi-person { flex: 0 0 auto; display: flex; align-items: center; gap: 12px; }
 .testi-avatar {
   width: 40px; height: 40px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
@@ -744,6 +751,8 @@ button { font-family: inherit; cursor: pointer; }
   background: linear-gradient(135deg, var(--green-dark), var(--green));
   flex-shrink: 0;
 }
+.testi-avatar--photo { overflow: hidden; background: none; }
+.testi-avatar--photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .testi-name { font-size: 12px; font-weight: 700; color: var(--white); }
 .testi-role { font-size: 10px; color: rgba(255,255,255,0.45); margin-top: 2px; }
 
@@ -751,15 +760,74 @@ button { font-family: inherit; cursor: pointer; }
   .testi-section { padding: 60px 0 72px; }
   .testi-header { padding: 0 20px; margin-bottom: 32px; }
   .testi-title { font-size: clamp(32px, 8vw, 52px); letter-spacing: -0.5px; }
-  .testi-card { flex-basis: 240px; }
-  .testi-track { animation-duration: 28s; }
+  .testi-card { flex-basis: 240px; height: 320px; }
 }
 @media (max-width: 480px) {
   .testi-section { padding: 48px 0 60px; }
   .testi-header { padding: 0 16px; }
   .testi-title { font-size: clamp(28px, 9vw, 40px); }
-  .testi-card { flex-basis: 210px; padding: 20px; }
-  .testi-track { animation-duration: 22s; }
+  .testi-card { flex-basis: 210px; height: 340px; padding: 20px; }
+}
+
+/* ── Testimonial quick-view modal ── */
+.testi-modal {
+  position: fixed; inset: 0; z-index: 1100;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.25s ease, visibility 0s linear 0.25s;
+}
+.testi-modal.open { visibility: visible; opacity: 1; transition: opacity 0.25s ease; }
+.testi-modal-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.testi-modal-panel {
+  position: relative; z-index: 1;
+  width: 100%; max-width: 760px;
+  display: flex;
+  background: linear-gradient(180deg, #0d130f 0%, #060807 100%);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 30px 70px rgba(0,0,0,0.6);
+  transform: translateY(16px) scale(0.97);
+  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+}
+.testi-modal.open .testi-modal-panel { transform: translateY(0) scale(1); }
+.testi-modal-close {
+  position: absolute; top: 16px; right: 16px; z-index: 2;
+  width: 34px; height: 34px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%; border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(0,0,0,0.3);
+  color: var(--white);
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.testi-modal-close svg { width: 15px; height: 15px; }
+.testi-modal-close:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); }
+.testi-modal-media { flex: 0 0 42%; position: relative; min-height: 360px; background: #111; }
+.testi-modal-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+.testi-modal-initial {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-weight: 700; font-size: 96px; color: #fff;
+  background: linear-gradient(135deg, var(--green-dark), var(--green));
+}
+.testi-modal-body { flex: 1 1 auto; min-width: 0; padding: 48px 44px; display: flex; flex-direction: column; justify-content: center; }
+.testi-modal-quote { font-family: var(--font-display); font-weight: 700; font-size: clamp(17px, 1.9vw, 22px); line-height: 1.5; letter-spacing: -0.2px; color: var(--white); margin-bottom: 26px; }
+.testi-modal-person { display: flex; flex-direction: column; gap: 4px; }
+.testi-modal-name { font-family: var(--font-body); font-weight: 700; font-size: 14px; color: var(--white); }
+.testi-modal-role { font-family: var(--font-body); font-size: 11.5px; color: rgba(255,255,255,0.5); }
+
+@media (max-width: 768px) {
+  .testi-modal-panel { flex-direction: column; max-width: 440px; }
+  .testi-modal-media { flex-basis: auto; height: 240px; min-height: 0; }
+  .testi-modal-initial { font-size: 64px; }
+  .testi-modal-body { padding: 30px 26px; }
 }
 
 /* ============================================================
@@ -1087,8 +1155,9 @@ button { font-family: inherit; cursor: pointer; }
   display: flex; flex-direction: column; justify-content: center;
 }
 .spotlight-thumb-label {
-  font-family: var(--font-display); font-weight: 700; font-size: 16px; letter-spacing: -0.2px;
+  font-family: var(--font-display); font-weight: 700; font-size: 16px; line-height: 1.3; letter-spacing: -0.2px;
   color: var(--white); margin-bottom: 8px;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
 .spotlight-thumb-teaser {
   font-family: var(--font-body); font-size: 10.5px; line-height: 1.65;
