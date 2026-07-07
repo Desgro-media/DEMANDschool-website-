@@ -39,7 +39,7 @@
 
 .cd-title {
   position: relative; z-index: 20;
-  font-family: var(--font-display); font-weight: 700;
+  font-family: var(--font-display); font-weight: 500;
   font-size: clamp(32px, 4.8vw, 60px); line-height: 1.04; letter-spacing: -1px;
   text-transform: uppercase; color: var(--white); max-width: 920px; margin-bottom: 20px;
 }
@@ -48,7 +48,7 @@
 .cd-kicker {
   position: relative; z-index: 20;
   font-family: var(--font-display); font-weight: 700; font-size: clamp(15px, 1.8vw, 20px);
-  text-transform: uppercase; letter-spacing: 0.3px; color: var(--green); margin-bottom: 18px;
+  letter-spacing: 0.3px; color: var(--green); margin-bottom: 18px;
 }
 
 .cd-tagline {
@@ -74,7 +74,7 @@
 .cd-section + .cd-section { border-top: 1px solid rgba(255,255,255,0.06); }
 .cd-eyebrow { display: flex; align-items: center; gap: 10px; font-family: var(--font-body); font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--green); margin-bottom: 16px; }
 .cd-eyebrow span { width: 24px; height: 2px; background: var(--green); flex-shrink: 0; }
-.cd-h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(26px, 3.6vw, 44px); line-height: 1.05; text-transform: uppercase; color: var(--white); letter-spacing: -1px; margin-bottom: 40px; }
+.cd-h2 { font-family: var(--font-display); font-weight: 500; font-size: clamp(26px, 3.6vw, 44px); line-height: 1.05; text-transform: uppercase; color: var(--white); letter-spacing: -1px; margin-bottom: 40px; }
 .cd-h2 em { font-style: normal; color: var(--green); }
 
 /* ---------- Outcomes checklist ---------- */
@@ -171,7 +171,7 @@
 
 /* ---------- Final CTA banner ---------- */
 .cd-final-cta { text-align: center; padding: 90px 6% 100px; background: linear-gradient(180deg, var(--black) 0%, #06120c 100%); border-top: 1px solid rgba(255,255,255,0.06); }
-.cd-final-h { font-family: var(--font-display); font-weight: 700; font-size: clamp(28px, 4.6vw, 48px); text-transform: uppercase; color: var(--white); line-height: 1.08; letter-spacing: -1px; margin-bottom: 28px; }
+.cd-final-h { font-family: var(--font-display); font-weight: 500; font-size: clamp(28px, 4.6vw, 48px); text-transform: uppercase; color: var(--white); line-height: 1.08; letter-spacing: -1px; margin-bottom: 28px; }
 .cd-final-h span { color: var(--green); }
 .cd-final-cta .cd-cta-row { justify-content: center; }
 

@@ -253,7 +253,7 @@ button { font-family: inherit; cursor: pointer; }
 .hero-headline {
   position: relative; z-index: 20;
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 500;
   font-size: clamp(30px, 4.4vw, 58px);
   line-height: 1.06;
   letter-spacing: -0.5px;
@@ -425,7 +425,7 @@ button { font-family: inherit; cursor: pointer; }
 
 .cur-title {
   position: relative; z-index: 2;
-  font-family: var(--font-display); font-weight: 700;
+  font-family: var(--font-display); font-weight: 500;
   font-size: clamp(24px, 1.9vw, 30px);
   line-height: 1.28;
   text-transform: uppercase;
@@ -512,7 +512,7 @@ button { font-family: inherit; cursor: pointer; }
 .course-modal-close svg { width: 15px; height: 15px; }
 .course-modal-close:hover { background: rgba(0,0,0,0.07); border-color: rgba(0,0,0,0.25); }
 .course-modal-title {
-  font-family: var(--font-display); font-weight: 700; font-size: clamp(20px, 2.6vw, 26px); line-height: 1.2;
+  font-family: var(--font-display); font-weight: 500; font-size: clamp(20px, 2.6vw, 26px); line-height: 1.2;
   text-transform: uppercase; color: #111; margin-bottom: 14px; padding-right: 24px;
 }
 .course-modal-title .t-green { color: var(--green); }
@@ -573,7 +573,7 @@ button { font-family: inherit; cursor: pointer; }
 .why-eyebrow span { width: 24px; height: 2px; background: var(--green); flex-shrink: 0; }
 .why-h {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 500;
   font-size: clamp(36px, 5vw, 72px);
   line-height: 1.02;
   letter-spacing: -1px;
@@ -718,7 +718,7 @@ button { font-family: inherit; cursor: pointer; }
 .testi-header { padding: 0 6%; margin-bottom: 48px; }
 .testi-eyebrow { display: flex; align-items: center; gap: 10px; font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--green); margin-bottom: 14px; }
 .testi-eyebrow-line { width: 24px; height: 2px; background: var(--green); }
-.testi-title { font-family: var(--font-display); font-weight: 700; font-size: clamp(34px, 4.6vw, 56px); line-height: 0.95; letter-spacing: -1px; }
+.testi-title { font-family: var(--font-display); font-weight: 500; font-size: clamp(34px, 4.6vw, 56px); line-height: 0.95; letter-spacing: -1px; }
 
 .testi-track-outer { overflow: hidden; cursor: grab; }
 .testi-track-outer.dragging { cursor: grabbing; }
@@ -844,7 +844,7 @@ button { font-family: inherit; cursor: pointer; }
 .mentors-header { padding: 40px 0 28px 40px; }
 .mentors-eyebrow { display: flex; align-items: center; gap: 10px; font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--green); margin-bottom: 14px; }
 .mentors-eyebrow span { width: 24px; height: 2px; background: var(--green); }
-.mentors-title { font-family: var(--font-display); font-weight: 700; font-size: clamp(40px, 6.2vw, 80px); line-height: 0.92; letter-spacing: -1px; text-transform: uppercase; color: var(--white); overflow-wrap: break-word; }
+.mentors-title { font-family: var(--font-display); font-weight: 500; font-size: clamp(40px, 6.2vw, 80px); line-height: 0.92; letter-spacing: -1px; text-transform: uppercase; color: var(--white); overflow-wrap: break-word; }
 .mentors-title span { color: var(--green); }
 
 .mentors-grid {
@@ -1101,7 +1101,7 @@ button { font-family: inherit; cursor: pointer; }
 .outcomes-header { padding: 0 40px; margin-bottom: 40px; display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
 .outcomes-eyebrow { display: flex; align-items: center; gap: 10px; font-size: 10px; font-weight: 600; letter-spacing: 3.5px; text-transform: uppercase; color: var(--green); margin-bottom: 8px; flex-basis: 100%; }
 .outcomes-eyebrow span { width: 24px; height: 2px; background: var(--green); }
-.outcomes-title { font-family: var(--font-display); font-weight: 700; font-size: clamp(40px, 6.5vw, 84px); line-height: 0.95; color: var(--white); text-transform: uppercase; letter-spacing: -2px; }
+.outcomes-title { font-family: var(--font-display); font-weight: 500; font-size: clamp(40px, 6.5vw, 84px); line-height: 0.95; color: var(--white); text-transform: uppercase; letter-spacing: -2px; }
 .outcomes-title span { color: var(--green); }
 
 .outcomes-spotlight { padding: 0 40px; }
@@ -1126,7 +1126,7 @@ button { font-family: inherit; cursor: pointer; }
 
 .spotlight-info { flex: 1 1 auto; min-width: 0; padding: 40px 44px; display: flex; flex-direction: column; justify-content: center; }
 .spotlight-cat { font-family: var(--font-body); font-size: 9px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--green); display: block; margin-bottom: 14px; }
-.spotlight-name { font-family: var(--font-display); font-weight: 700; font-size: clamp(20px, 2vw, 28px); line-height: 1.18; letter-spacing: -0.5px; color: var(--white); margin-bottom: 14px; }
+.spotlight-name { font-family: var(--font-display); font-weight: 500; font-size: clamp(20px, 2vw, 28px); line-height: 1.18; letter-spacing: -0.5px; color: var(--white); margin-bottom: 14px; }
 .spotlight-desc { font-family: var(--font-body); font-size: 13px; line-height: 1.85; color: rgba(255,255,255,0.55); margin-bottom: 18px; }
 .spotlight-link { font-family: var(--font-body); font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,0.55); transition: color 0.25s ease; }
 .spotlight-link:hover { color: var(--green); }
@@ -1214,7 +1214,7 @@ button { font-family: inherit; cursor: pointer; }
 .vibe-eyebrow { font-family: var(--font-body); font-size: 12px; font-weight: 600; color: var(--green); margin-bottom: 18px; }
 .vibe-line {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 500;
   font-size: clamp(26px, 4vw, 46px);
   line-height: 1.15;
   letter-spacing: -0.5px;
@@ -1232,7 +1232,7 @@ button { font-family: inherit; cursor: pointer; }
 .contact-section { position: relative; display: flex; flex-direction: column; background: var(--black); padding: 100px 6% 0; overflow: hidden; }
 .ct-body { position: relative; display: flex; justify-content: space-between; align-items: center; gap: 40px; flex-wrap: wrap; padding-bottom: 60px; }
 .ct-eyebrow { font-family: var(--font-body); font-size: 12px; font-weight: 700; letter-spacing: 1px; color: var(--green); margin-bottom: 18px; }
-.ct-headline { font-family: var(--font-display); font-weight: 700; font-size: clamp(34px, 6vw, 72px); line-height: 0.95; letter-spacing: -2px; text-transform: uppercase; }
+.ct-headline { font-family: var(--font-display); font-weight: 500; font-size: clamp(34px, 6vw, 72px); line-height: 0.95; letter-spacing: -2px; text-transform: uppercase; }
 .ct-lw { display: block; }
 .ct-line { display: inline-block; color: var(--white); }
 .ct-line--stroke { -webkit-text-stroke: 1.5px var(--white); color: transparent; }
