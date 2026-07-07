@@ -136,24 +136,6 @@
 
 })();
 
-const COURSE_LABELS = {
-  mma: 'Modern Marketing Architect (MMA)',
-  aic: 'AI Contentology (AIC)',
-  cc: 'Content Creation (CC)'
-};
-
-/* ──────────────────────────────────────────
-   Contact form: pre-select the course when a course
-   detail page's "Enroll Now" link lands here with
-   ?enroll=mma|aic|cc in the URL
-────────────────────────────────────────── */
-(function initEnrollPrefill() {
-  const select = document.querySelector('#enquiryForm select[name="course"]');
-  if (!select) return;
-  const param = new URLSearchParams(location.search).get('enroll');
-  if (param && COURSE_LABELS[param]) select.value = COURSE_LABELS[param];
-})();
-
 /* ──────────────────────────────────────────
    Curriculum cards: clicking the arrow opens a quick-view
    modal (details + brochure/enroll/explore) instead of
@@ -174,10 +156,8 @@ const COURSE_LABELS = {
   if (!modal || !triggers.length) return;
 
   let activePage = '#';
-  let activeCourse = '';
 
   function openModal(card, btn) {
-    activeCourse = btn.dataset.course;
     activePage = btn.dataset.page;
     titleEl.innerHTML = card.querySelector('.cur-title').innerHTML;
     descEl.innerHTML = card.querySelector('.cur-desc').innerHTML;
@@ -211,10 +191,7 @@ const COURSE_LABELS = {
   brochureBtn.addEventListener('click', () => { location.href = activePage + '?brochure=1'; });
 
   enrollBtn.addEventListener('click', () => {
-    const select = document.querySelector('#enquiryForm select[name="course"]');
-    if (select && COURSE_LABELS[activeCourse]) select.value = COURSE_LABELS[activeCourse];
-    closeModal();
-    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+    window.location.href = 'https://erp.demandschool.in/leads/enquiry/';
   });
 })();
 
@@ -299,35 +276,6 @@ const COURSE_LABELS = {
     if (!ticking) { requestAnimationFrame(updateParallax); ticking = true; }
   }, { passive: true });
   updateParallax();
-})();
-
-/* ──────────────────────────────────────────
-   Enquiry form — static site, no backend, so this
-   opens the visitor's email client with the details
-   pre-filled rather than pretending to submit anywhere.
-────────────────────────────────────────── */
-(function initEnquiryForm() {
-  const form = document.getElementById('enquiryForm');
-  const note = document.getElementById('efNote');
-  if (!form) return;
-
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    if (!form.reportValidity()) return;
-
-    const data = new FormData(form);
-    const name = (data.get('name') || '').trim();
-    const phone = (data.get('phone') || '').trim();
-    const qualification = data.get('qualification') || '';
-    const course = data.get('course') || '';
-
-    const subject = `Course Enquiry — ${course}`;
-    const body = `Name: ${name}\nPhone: ${phone}\nAcademic Qualification: ${qualification}\nCourse: ${course}`;
-    const mailto = `mailto:hello@demandschool.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-    window.location.href = mailto;
-    if (note) note.textContent = 'Opening your email app to send this to us…';
-  });
 })();
 
 /* ══════════════════════════════════════════════════════

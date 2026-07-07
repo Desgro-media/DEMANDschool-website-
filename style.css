@@ -1242,40 +1242,15 @@ button { font-family: inherit; cursor: pointer; }
 
 .ct-right { display: flex; flex-direction: column; align-items: stretch; gap: 28px; width: 400px; max-width: 100%; }
 
-.enquiry-form { display: flex; flex-direction: column; gap: 14px; width: 100%; }
-.ef-row { display: flex; gap: 14px; }
-.ef-field { flex: 1 1 0; display: flex; flex-direction: column; gap: 6px; }
-.ef-label { font-family: var(--font-body); font-size: 10px; font-weight: 700; letter-spacing: 1.3px; text-transform: uppercase; color: rgba(255,255,255,0.45); }
-.ef-field input, .ef-field select {
-  font-family: var(--font-body); font-size: 13px; color: var(--white);
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.16);
-  border-radius: 10px;
-  padding: 13px 14px;
-  outline: none;
-  transition: border-color 0.2s ease, background 0.2s ease;
-}
-.ef-field select {
-  appearance: none; -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232ab460' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  background-size: 16px;
-  padding-right: 34px;
-}
-.ef-field select option { background: #0a0f0c; color: var(--white); }
-.ef-field input::placeholder { color: rgba(255,255,255,0.3); }
-.ef-field input:focus, .ef-field select:focus { border-color: var(--green); background: rgba(42,180,96,0.06); }
-
 .ef-submit {
   display: flex; align-items: center; justify-content: center;
   background: var(--green); color: var(--black);
   font-family: var(--font-body); font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
   padding: 16px 24px; border: none; border-radius: 999px; cursor: pointer;
+  text-decoration: none;
   transition: background 0.2s ease, transform 0.15s ease;
 }
 .ef-submit:hover { background: #1f9450; transform: translateY(-1px); }
-.ef-note { min-height: 14px; font-family: var(--font-body); font-size: 11px; color: var(--green); }
 
 .ct-socials { display: flex; flex-direction: column; gap: 10px; width: 100%; }
 .ct-social-row {
@@ -1321,7 +1296,6 @@ button { font-family: inherit; cursor: pointer; }
   .contact-section { padding: 56px 20px 0; }
   .ct-headline { font-size: clamp(36px, 12vw, 62px); letter-spacing: -1.5px; }
   .ct-body { padding-bottom: 44px; gap: 28px; }
-  .ef-row { flex-direction: column; gap: 14px; }
 }
 @media (max-width: 360px) {
   .ct-headline { font-size: clamp(32px, 12vw, 50px); }
