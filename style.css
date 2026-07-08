@@ -669,7 +669,7 @@ button { font-family: inherit; cursor: pointer; }
 .mission-eyebrow span { width: 32px; height: 2px; background: var(--green); }
 
 .mission-statement {
-  font-family: var(--font-display); font-weight: 700;
+  font-family: var(--font-display); font-weight: 500;
   font-size: clamp(24px, 3.4vw, 42px);
   line-height: 1.4;
   letter-spacing: -0.5px;
