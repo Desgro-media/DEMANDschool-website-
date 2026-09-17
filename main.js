@@ -149,6 +149,7 @@
   const durationEl = document.getElementById('courseModalDuration');
   const modulesEl  = document.getElementById('courseModalModules');
   const afterEl    = document.getElementById('courseModalAfter');
+  const afterLabelEl = document.getElementById('courseModalAfterLabel');
   const brochureBtn = document.getElementById('courseModalBrochure');
   const enrollBtn  = document.getElementById('courseModalEnroll');
   const exploreLink = document.getElementById('courseModalExplore');
@@ -165,6 +166,7 @@
     durationEl.textContent = btn.dataset.duration;
     modulesEl.textContent = btn.dataset.modules;
     afterEl.textContent = btn.dataset.after;
+    afterLabelEl.textContent = btn.dataset.afterLabel || 'After Course';
     exploreLink.href = activePage;
     modal.classList.add('open');
     modal.setAttribute('aria-hidden', 'false');
