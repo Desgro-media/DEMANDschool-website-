@@ -418,15 +418,6 @@
       linkText: 'View on Instagram'
     },
     {
-      shortName: 'AI Contentology',
-      media: { type: 'video', src: 'realresults/bammbuzz-tissue-ad.mp4' },
-      cat: 'AI Contentology · Freelance Work',
-      name: 'AI Contentology students are already freelancing for real brands',
-      desc: 'This Bammbuzz tissue ad was produced end-to-end using the AI content workflows taught in the program — proof that graduates are landing paid freelance briefs and earning from client work before the course even ends.',
-      link: '#curriculum',
-      linkText: 'Explore the course'
-    },
-    {
       shortName: 'Dr. Muneer',
       media: { type: 'image', src: 'realresults/dr-pk-muneer.jpg', alt: 'Dr. PK Muneer' },
       cat: 'Content Creation · Personal Brand',
