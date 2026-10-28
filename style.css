@@ -460,8 +460,8 @@ button { font-family: inherit; cursor: pointer; }
 .cur-explore:hover .cur-explore-arrow { background: #7fe3ab; transform: translateX(3px); }
 
 @media (max-width: 1024px) {
-  .curriculum-cards { flex-wrap: wrap; padding: 8px 24px 40px; }
-  .cur-card { flex: 1 1 45%; }
+  .curriculum-cards { gap: 16px; padding: 8px 24px 40px; }
+  .cur-card { padding: 30px 24px 26px; }
 }
 @media (max-width: 768px) {
   .curriculum-cards { flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding: 8px 20px 36px; gap: 16px; }
@@ -1131,7 +1131,7 @@ button { font-family: inherit; cursor: pointer; }
 .spotlight-link { font-family: var(--font-body); font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,0.55); transition: color 0.25s ease; }
 .spotlight-link:hover { color: var(--green); }
 
-.spotlight-thumbs { flex: 0 0 auto; width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; align-items: stretch; }
+.spotlight-thumbs { flex: 0 0 auto; width: 100%; display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; align-items: stretch; }
 .spotlight-thumb {
   position: relative;
   display: flex; flex-direction: row; align-items: stretch;
